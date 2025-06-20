@@ -36,7 +36,7 @@ function Mid() {
           className: "flex lg:flex-1",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
             href: "#",
-            className: "-m-1.5 p-1.5 text-4xl sm:text-5xl font-bold smooch-sans-font\r text-white",
+            className: "-m-1.5 p-1.5 text-4xl sm:text-5xl font-bold smooch-sans-font text-white",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
               className: "",
               children: ".Developers"
@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_storage_app_public_assets_bg_jpg__WEBPACK_IMPORTED_MODULE_2__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".midBg{\r\n    background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\r\n    background-size: initial;\r\n    background-position: initial;\r\n    box-shadow: 25px 25px 50px 0 #1e1d1d inset, -25px -25px 50px 0 #181f20 inset; \r\n    border-radius: 5px;\r\n}\r\n.l-height-4{\r\n    line-height: 4rem;\r\n}\r\n.main-shadow{\r\n    box-shadow: 8px 3px 58px 1px rgb(10 10 10 / 79%);\r\n-webkit-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);\r\n-moz-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);\r\n}\r\n@media (max-width: 360px) {\r\n    .midBg {\r\n        background-position: left;\r\n    }\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".midBg{\n    background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n    background-size: initial;\n    background-position: initial;\n    box-shadow: 25px 25px 50px 0 #1e1d1d inset, -25px -25px 50px 0 #181f20 inset; \n    border-radius: 5px;\n}\n.l-height-4{\n    line-height: 4rem;\n}\n.main-shadow{\n    box-shadow: 8px 3px 58px 1px rgb(10 10 10 / 79%);\n-webkit-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);\n-moz-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);\n}\n@media (max-width: 360px) {\n    .midBg {\n        background-position: left;\n    }\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

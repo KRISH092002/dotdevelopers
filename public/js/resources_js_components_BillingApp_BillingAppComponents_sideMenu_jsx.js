@@ -247,7 +247,7 @@ function Divider(props) {
       return el;
     }).join('  ')),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-      className: "block w-full  border  border-gray-900/10\r "
+      className: "block w-full  border  border-gray-900/10 "
     }), props.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
         className: "block text-gray-900 ",

@@ -282,87 +282,112 @@ function Product() {
         Validator: true,
         onError: errors.name,
         errorMsg: errors.name
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        className: "block mb-2",
-        children: ["SKU:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-          type: "text",
-          value: data.sku,
-          onChange: function onChange(e) {
-            return setData('sku', e.target.value);
-          },
-          className: "w-full border p-2"
-        }), errors.sku && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-          className: "text-red-500 text-sm",
-          children: errors.sku
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        className: "block mb-2",
-        children: ["Category:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-          type: "text",
-          value: data.category,
-          onChange: function onChange(e) {
-            return setData('category', e.target.value);
-          },
-          className: "w-full border p-2"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        className: "block mb-2",
-        children: ["Purchase Price:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-          type: "number",
-          value: data.purchase_price,
-          onChange: function onChange(e) {
-            return setData('purchase_price', e.target.value);
-          },
-          className: "w-full border p-2"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        className: "block mb-2",
-        children: ["Selling Price:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-          type: "number",
-          value: data.selling_price,
-          onChange: function onChange(e) {
-            return setData('selling_price', e.target.value);
-          },
-          className: "w-full border p-2"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        className: "block mb-2",
-        children: ["Stock:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-          type: "number",
-          value: data.stock,
-          onChange: function onChange(e) {
-            return setData('stock', e.target.value);
-          },
-          className: "w-full border p-2"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        className: "block mb-2",
-        children: ["Unit:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-          value: data.unit,
-          onChange: function onChange(e) {
-            return setData('unit', e.target.value);
-          },
-          className: "w-full border p-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "pcs",
-            children: "pcs"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "kg",
-            children: "kg"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-            value: "ltr",
-            children: "ltr"
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        className: "block mb-2",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-          type: "checkbox",
-          checked: data.status,
-          onChange: function onChange(e) {
-            return setData('status', e.target.checked);
-          }
-        }), "Active"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_components_inputs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        type: "text",
+        label: "SKU",
+        id: "SKU",
+        name: "SKU",
+        placeholder: "Enter SKU",
+        value: data.sku,
+        event: "onChange",
+        handler: function handler(e) {
+          return setData('sku', e.target.value);
+        },
+        Validator: true,
+        onError: errors.sku,
+        errorMsg: errors.sku
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_components_inputs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        type: "text",
+        label: "category",
+        id: "category",
+        name: "category",
+        placeholder: "Enter category",
+        value: data.category,
+        event: "onChange",
+        handler: function handler(e) {
+          return setData('category', e.target.value);
+        },
+        Validator: true,
+        onError: errors.category,
+        errorMsg: errors.category
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_components_inputs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        type: "number",
+        label: "Price",
+        id: "price",
+        name: "purchase_price",
+        placeholder: "Enter purchase_price",
+        value: data.purchase_price,
+        event: "onChange",
+        handler: function handler(e) {
+          return setData('purchase_price', e.target.value);
+        },
+        Validator: true,
+        onError: errors.purchase_price,
+        errorMsg: errors.purchase_price
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_components_inputs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        type: "number",
+        label: "selling Price",
+        id: "selling_price",
+        name: "selling_price",
+        placeholder: "Enter selling_price",
+        value: data.selling_price,
+        event: "onChange",
+        handler: function handler(e) {
+          return setData('selling_price', e.target.value);
+        },
+        Validator: true,
+        onError: errors.selling_price,
+        errorMsg: errors.selling_price
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_components_inputs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        type: "number",
+        label: "stock",
+        id: "stock",
+        name: "stock",
+        placeholder: "Enter stock",
+        value: data.stock,
+        event: "onChange",
+        handler: function handler(e) {
+          return setData('stock', e.target.value);
+        },
+        Validator: true,
+        onError: errors.stock,
+        errorMsg: errors.stock
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_components_inputs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        type: "select",
+        label: "unit",
+        id: "unit",
+        name: "unit",
+        value: data.unit,
+        event: "onChange",
+        handler: function handler(e) {
+          return setData('unit', e.target.value);
+        },
+        Validator: true,
+        onError: errors.unit,
+        errorMsg: errors.unit,
+        options: [{
+          value: 'pcs',
+          name: 'pcs'
+        }, {
+          value: 'kg',
+          name: 'kg'
+        }, {
+          value: 'ltr',
+          name: 'ltr'
+        }]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_components_inputs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        type: "checbox",
+        label: "status",
+        id: "status",
+        name: "status",
+        value: data.status,
+        event: "onChange",
+        handler: function handler(e) {
+          return setData('status', e.target.value);
+        },
+        Validator: true,
+        onError: errors.status,
+        errorMsg: errors.status
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
         type: "submit",
         disabled: processing,
@@ -520,7 +545,7 @@ function Divider(props) {
       return el;
     }).join('  ')),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-      className: "block w-full  border  border-gray-900/10\r "
+      className: "block w-full  border  border-gray-900/10 "
     }), props.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
         className: "block text-gray-900 ",
@@ -597,7 +622,8 @@ function Input(props) {
     errorMsg = props.errorMsg,
     required = props.required,
     autofocus = props.autofocus,
-    value = props.value;
+    value = props.value,
+    options = props.options;
   var input;
   switch (type) {
     case 'text':
@@ -620,6 +646,80 @@ function Input(props) {
           required: true
         } : {}), {}, {
           value: value
+        })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
+          children: errorMsg ? errorMsg : 'required field.'
+        })]
+      });
+      break;
+    case 'number':
+      input = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "w-full px-3 mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+          htmlFor: id,
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", _objectSpread(_objectSpread(_objectSpread({
+          className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          id: id ? id : undefined,
+          name: name ? name : undefined,
+          placeholder: placeholder ? placeholder : undefined,
+          type: type
+        }, _defineProperty({}, event, handler)), required ? {
+          required: true
+        } : {}), {}, {
+          value: value
+        })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
+          children: errorMsg ? errorMsg : 'required field.'
+        })]
+      });
+      break;
+    case 'select':
+      input = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "w-full px-3 mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+          htmlFor: id,
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", _objectSpread(_objectSpread(_objectSpread({
+          className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          id: id ? id : undefined,
+          name: name ? name : undefined,
+          type: type
+        }, _defineProperty({}, event, handler)), required ? {
+          required: true
+        } : {}), {}, {
+          value: value,
+          children: options && options.map(function (el, key) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              ind: key,
+              value: el.value,
+              children: el.name
+            });
+          })
+        })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
+          children: errorMsg ? errorMsg : 'required field.'
+        })]
+      });
+      break;
+    case 'checkbox':
+      input = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "w-full px-3 mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+          htmlFor: id,
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", _objectSpread(_objectSpread(_objectSpread({
+          className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          id: id ? id : undefined,
+          name: name ? name : undefined,
+          type: type
+        }, _defineProperty({}, event, handler)), required ? {
+          required: true
+        } : {}), {}, {
+          checked: value
         })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
           className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
           children: errorMsg ? errorMsg : 'required field.'

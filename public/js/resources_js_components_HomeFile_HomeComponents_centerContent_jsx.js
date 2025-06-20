@@ -185,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n\r\n.aboutBg {\r\n    background-color: dodgerblue;\r\n    padding: 45px;\r\n    color: white;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n.aboutBg {\n    background-color: dodgerblue;\n    padding: 45px;\n    color: white;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -208,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".blink-text:last-child::before{\r\n    content: \"\";\r\n    position: absolute;\r\n    top: 0px;\r\n    right: -7px;\r\n    width: 5px;\r\n    background-color: currentColor ;\r\n    height: 100%;\r\n    animation: blink 200ms linear infinite;\r\n}\r\n.blink-text{\r\n    width: -moz-fit-content;\r\n    width: fit-content;\r\n}\r\n@keyframes blink {\r\n    from {opacity: 0.2;}\r\n    to {opacity: 0.8;}\r\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".blink-text:last-child::before{\n    content: \"\";\n    position: absolute;\n    top: 0px;\n    right: -7px;\n    width: 5px;\n    background-color: currentColor ;\n    height: 100%;\n    animation: blink 200ms linear infinite;\n}\n.blink-text{\n    width: -moz-fit-content;\n    width: fit-content;\n}\n@keyframes blink {\n    from {opacity: 0.2;}\n    to {opacity: 0.8;}\n  }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

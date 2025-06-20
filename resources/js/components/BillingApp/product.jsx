@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { usePage ,useForm } from '@inertiajs/inertia-react';
+import { usePage, useForm } from '@inertiajs/inertia-react';
 import SideMenu from "./BillingAppComponents/sideMenu";
 import Input from '../common/components/inputs';
 import Divider from '../common/components/dividerComponent';
@@ -22,63 +22,39 @@ export default function Product() {
     e.preventDefault();
     post('/pro');
   };
-  const [productPopup , productPopupToggle] = useState(false);
-  let products =[];
+  const [productPopup, productPopupToggle] = useState(false);
+  let products = [];
   const userNameCheck = async (event) => {
 
 
   };
-  let addProduct=  <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
-      <h2 className="text-lg font-bold mb-4">Add New Product</h2>
-      <form onSubmit={handleSubmit}>
-          <Input  type="text" label='Name' id='name' name='name' placeholder="Enter User Name" value={data.name} event='onChange' handler={(e) => setData('name', e.target.value)} Validator={true} onError={errors.name} errorMsg={errors.name}/>
-        
+  let addProduct = <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
+    <h2 className="text-lg font-bold mb-4">Add New Product</h2>
+    <form onSubmit={handleSubmit}>
+      <Input type="text" label='Name' id='name' name='name' placeholder="Enter User Name" value={data.name} event='onChange' handler={(e) => setData('name', e.target.value)} Validator={true} onError={errors.name} errorMsg={errors.name} />
+      <Input type="text" label='SKU' id='SKU' name='SKU' placeholder="Enter SKU" value={data.sku} event='onChange' handler={(e) => setData('sku', e.target.value)} Validator={true} onError={errors.sku} errorMsg={errors.sku} />
+      <Input type="text" label='category' id='category' name='category' placeholder="Enter category" value={data.category} event='onChange' handler={(e) => setData('category', e.target.value)} Validator={true} onError={errors.category} errorMsg={errors.category} />
 
-        <label className="block mb-2">
-          SKU:
-          <input type="text" value={data.sku} onChange={e => setData('sku', e.target.value)} className="w-full border p-2" />
-          {errors.sku && <span className="text-red-500 text-sm">{errors.sku}</span>}
-        </label>
+      <Input type="number" label='Price' id='price' name='purchase_price' placeholder="Enter purchase_price" value={data.purchase_price} event='onChange' handler={(e) => setData('purchase_price', e.target.value)} Validator={true} onError={errors.purchase_price} errorMsg={errors.purchase_price} />
 
-        <label className="block mb-2">
-          Category:
-          <input type="text" value={data.category} onChange={e => setData('category', e.target.value)} className="w-full border p-2" />
-        </label>
+      <Input type="number" label='selling Price' id='selling_price' name='selling_price' placeholder="Enter selling_price" value={data.selling_price} event='onChange' handler={(e) => setData('selling_price', e.target.value)} Validator={true} onError={errors.selling_price} errorMsg={errors.selling_price} />
 
-        <label className="block mb-2">
-          Purchase Price:
-          <input type="number" value={data.purchase_price} onChange={e => setData('purchase_price', e.target.value)} className="w-full border p-2" />
-        </label>
+      <Input type="number" label='stock' id='stock' name='stock' placeholder="Enter stock" value={data.stock} event='onChange' handler={(e) => setData('stock', e.target.value)} Validator={true} onError={errors.stock} errorMsg={errors.stock} />
 
-        <label className="block mb-2">
-          Selling Price:
-          <input type="number" value={data.selling_price} onChange={e => setData('selling_price', e.target.value)} className="w-full border p-2" />
-        </label>
+      <Input type="select" label='unit' id='unit' name='unit' value={data.unit} event='onChange' handler={(e) => setData('unit', e.target.value)} Validator={true} onError={errors.unit} errorMsg={errors.unit} options={[
+        { value: 'pcs', name: 'pcs' },
+        { value: 'kg', name: 'kg' },
+        { value: 'ltr', name: 'ltr' }
+      ]} />
 
-        <label className="block mb-2">
-          Stock:
-          <input type="number" value={data.stock} onChange={e => setData('stock', e.target.value)} className="w-full border p-2" />
-        </label>
+      <Input type="checbox" label='status' id='status' name='status' value={data.status} event='onChange' handler={(e) => setData('status', e.target.value)} Validator={true} onError={errors.status} errorMsg={errors.status} />
 
-        <label className="block mb-2">
-          Unit:
-          <select value={data.unit} onChange={e => setData('unit', e.target.value)} className="w-full border p-2">
-            <option value="pcs">pcs</option>
-            <option value="kg">kg</option>
-            <option value="ltr">ltr</option>
-          </select>
-        </label>
 
-        <label className="block mb-2">
-          <input type="checkbox" checked={data.status} onChange={e => setData('status', e.target.checked)} />
-          Active
-        </label>
-
-        <button type="submit" disabled={processing} className="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
-          {processing ? 'Saving...' : 'Save Product'}
-        </button>
-      </form>
-    </div>
+      <button type="submit" disabled={processing} className="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
+        {processing ? 'Saving...' : 'Save Product'}
+      </button>
+    </form>
+  </div>
   return (
     <div className="flex">
       <div>
@@ -98,7 +74,7 @@ export default function Product() {
 
         </div>
         <Divider classArr={['bg-[#d8dce8]', 'h-[0.09rem]']} />
-        <Popup open={productPopup}  element = {addProduct} />
+        <Popup open={productPopup} element={addProduct} />
         <div>
           <table className="w-full border">
             <thead>

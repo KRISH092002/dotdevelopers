@@ -1,7 +1,7 @@
 import "../../../../css/common/inputs.css";
 
 export default function Input(props) {
-  let { type, id, label, name, placeholder, event, handler, onError, Validate ,  errorMsg , required , autofocus , value} = props
+  let { type, id, label, name, placeholder, event, handler, onError, Validate, errorMsg, required, autofocus, value, options } = props
   let input;
   switch (type) {
     case 'text': case 'email': case 'password':
@@ -9,7 +9,48 @@ export default function Input(props) {
       input =
         <div className="w-full px-3 mb-3 ">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
-          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? {required : true} : {})} value={value}/>
+          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+          {Validate && (
+            <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
+              {errorMsg ? errorMsg : 'required field.'}
+            </p>
+          )}
+        </div>
+      break;
+    case 'number':
+      input =
+        <div className="w-full px-3 mb-3 ">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+          {Validate && (
+            <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
+              {errorMsg ? errorMsg : 'required field.'}
+            </p>
+          )}
+        </div>
+      break
+    case 'select':
+      input =
+        <div className="w-full px-3 mb-3 ">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} >
+
+            {options && options.map((el, key) => {
+              return (<option ind={key} value={el.value}>{el.name}</option>)
+            })}
+          </select>
+          {Validate && (
+            <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
+              {errorMsg ? errorMsg : 'required field.'}
+            </p>
+          )}
+        </div>
+      break
+    case 'checkbox':
+      input =
+        <div className="w-full px-3 mb-3 ">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} checked={value} />
           {Validate && (
             <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
               {errorMsg ? errorMsg : 'required field.'}

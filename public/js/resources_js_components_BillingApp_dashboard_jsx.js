@@ -376,7 +376,7 @@ function Divider(props) {
       return el;
     }).join('  ')),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-      className: "block w-full  border  border-gray-900/10\r "
+      className: "block w-full  border  border-gray-900/10 "
     }), props.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
         className: "block text-gray-900 ",
@@ -462,7 +462,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".mantine-AreaChart-root {\r\n    height : 100%\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".mantine-AreaChart-root {\n    height : 100%\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

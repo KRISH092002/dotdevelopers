@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".footerBg{\r\n  background-color: black;\r\n  color: #e3dcdce6;\r\n}\r\n\r\n.divderColor{\r\n    border-color: #ffffff26 ;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".footerBg{\n  background-color: black;\n  color: #e3dcdce6;\n}\n\n.divderColor{\n    border-color: #ffffff26 ;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

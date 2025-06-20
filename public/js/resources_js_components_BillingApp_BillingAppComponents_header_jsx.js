@@ -708,7 +708,8 @@ function Input(props) {
     errorMsg = props.errorMsg,
     required = props.required,
     autofocus = props.autofocus,
-    value = props.value;
+    value = props.value,
+    options = props.options;
   var input;
   switch (type) {
     case 'text':
@@ -731,6 +732,80 @@ function Input(props) {
           required: true
         } : {}), {}, {
           value: value
+        })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
+          children: errorMsg ? errorMsg : 'required field.'
+        })]
+      });
+      break;
+    case 'number':
+      input = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "w-full px-3 mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+          htmlFor: id,
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", _objectSpread(_objectSpread(_objectSpread({
+          className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          id: id ? id : undefined,
+          name: name ? name : undefined,
+          placeholder: placeholder ? placeholder : undefined,
+          type: type
+        }, _defineProperty({}, event, handler)), required ? {
+          required: true
+        } : {}), {}, {
+          value: value
+        })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
+          children: errorMsg ? errorMsg : 'required field.'
+        })]
+      });
+      break;
+    case 'select':
+      input = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "w-full px-3 mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+          htmlFor: id,
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", _objectSpread(_objectSpread(_objectSpread({
+          className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          id: id ? id : undefined,
+          name: name ? name : undefined,
+          type: type
+        }, _defineProperty({}, event, handler)), required ? {
+          required: true
+        } : {}), {}, {
+          value: value,
+          children: options && options.map(function (el, key) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              ind: key,
+              value: el.value,
+              children: el.name
+            });
+          })
+        })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
+          children: errorMsg ? errorMsg : 'required field.'
+        })]
+      });
+      break;
+    case 'checkbox':
+      input = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "w-full px-3 mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+          className: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+          htmlFor: id,
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", _objectSpread(_objectSpread(_objectSpread({
+          className: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+          id: id ? id : undefined,
+          name: name ? name : undefined,
+          type: type
+        }, _defineProperty({}, event, handler)), required ? {
+          required: true
+        } : {}), {}, {
+          checked: value
         })), Validate && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
           className: "text-red-500 text-xs italic ".concat(onError ? 'hidden' : ''),
           children: errorMsg ? errorMsg : 'required field.'
@@ -816,7 +891,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".headerBg{\r\n    background-color: var(--primary-blue);\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".headerBg{\n    background-color: var(--primary-blue);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
