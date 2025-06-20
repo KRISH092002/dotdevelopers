@@ -1,0 +1,49 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm  run development ",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production",
+        "cacheclean": "php artisan config:clear && php artisan route:clear && php artisan cache:clear && php artisan view:clear && php artisan clear-compiled && composer dump-autoload && php artisan optimize && php artisan view:clear",
+        "npm run ziggy": "php artisan ziggy:generate",
+        "optimize-svg": "svgo public/svg/spritemap.svg --config=svgo.config.js"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.25.9",
+        "autoprefixer": "^10.4.21",
+        "axios": "^1.6.4",
+        "init": "^0.1.2",
+        "laravel-mix": "^6.0.49",
+        "laravel-vite-plugin": "^1.0.0",
+        "npx": "^10.2.2",
+        "postcss": "^8.5.4",
+        "postcss-preset-mantine": "^1.17.0",
+        "postcss-simple-vars": "^7.0.1",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.81.0",
+        "sass-loader": "^12.1.0",
+        "svg-spritemap-webpack-plugin": "^4.7.0",
+        "svgo": "^3.3.2",
+        "tailwindcss": "^3.4.17",
+        "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/inertia-react": "^0.8.1",
+        "@mantine/charts": "^8.0.2",
+        "@mantine/core": "^8.0.2",
+        "@mantine/hooks": "^8.0.2",
+        "i": "^0.3.7",
+        "jquery": "^3.7.1",
+        "npm": "^10.9.2",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-icons": "^4.2.0",
+        "recharts": "^2.15.3",
+        "ziggy-js": "^2.4.2"
+    }
+}

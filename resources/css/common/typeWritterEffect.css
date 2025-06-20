@@ -1,0 +1,17 @@
+.blink-text:last-child::before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: -7px;
+    width: 5px;
+    background-color: currentColor ;
+    height: 100%;
+    animation: blink 200ms linear infinite;
+}
+.blink-text{
+    width: fit-content;
+}
+@keyframes blink {
+    from {opacity: 0.2;}
+    to {opacity: 0.8;}
+  }

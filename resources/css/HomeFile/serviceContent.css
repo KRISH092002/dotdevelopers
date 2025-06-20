@@ -1,0 +1,46 @@
+.listColor { 
+    border-color : #d0d0f3;
+    outline-color : #1e1edc;
+}
+.serviceshadow{
+  box-shadow: -1px -1px 3px 1px rgba(230, 216, 216, 0.75) inset;
+-webkit-box-shadow: -1px -1px 3px 1px rgba(230, 216, 216, 0.75) inset;
+-moz-box-shadow: -1px -1px 3px 1px rgba(230, 216, 216, 0.75) inset;
+}
+.iconDown{
+  color: #9f838375 !important;
+}
+.serviceBg {
+
+  background-color: ghostwhite;
+}
+.d-none {
+  display: none;
+}
+.li{
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+.li:not(:last-child){
+  border-bottom: 1px solid #dcdada;
+}
+/* Define the container for the element */
+.move-left {
+    position: relative; /* To make the movement work */
+    animation: move-left-animation 20s linear infinite; /* Applying the animation */
+  }
+  
+  /* Define the keyframes for the left move animation */
+  @keyframes move-left-animation {
+    0% {
+        transform: translateX(0); /* Initial position */
+      }
+     
+      100% {
+        transform: translateX(-300px); /* Return to the original position */
+        
+
+      }
+  }
+  

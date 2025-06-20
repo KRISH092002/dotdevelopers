@@ -1,0 +1,115 @@
+
+.headerBg{
+    background-color: var(--primary-blue);
+}
+
+.mantine-AreaChart-root {
+    height : 100%
+}
+.midBg{
+    background-image: url(/images/bg.jpg?c6f6e6d59a95b33f386b9072824b6034);
+    background-size: initial;
+    background-position: initial;
+    box-shadow: 25px 25px 50px 0 #1e1d1d inset, -25px -25px 50px 0 #181f20 inset; 
+    border-radius: 5px;
+}
+.l-height-4{
+    line-height: 4rem;
+}
+.main-shadow{
+    box-shadow: 8px 3px 58px 1px rgb(10 10 10 / 79%);
+-webkit-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);
+-moz-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);
+}
+@media (max-width: 360px) {
+    .midBg {
+        background-position: left;
+    }
+}
+.blink-text:last-child::before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: -7px;
+    width: 5px;
+    background-color: currentColor ;
+    height: 100%;
+    animation: blink 200ms linear infinite;
+}
+.blink-text{
+    width: -moz-fit-content;
+    width: fit-content;
+}
+@keyframes blink {
+    from {opacity: 0.2;}
+    to {opacity: 0.8;}
+  }
+
+
+.aboutBg {
+    background-color: dodgerblue;
+    padding: 45px;
+    color: white;
+}
+.listColor { 
+    border-color : #d0d0f3;
+    outline-color : #1e1edc;
+}
+.serviceshadow{
+  box-shadow: -1px -1px 3px 1px rgba(230, 216, 216, 0.75) inset;
+-webkit-box-shadow: -1px -1px 3px 1px rgba(230, 216, 216, 0.75) inset;
+-moz-box-shadow: -1px -1px 3px 1px rgba(230, 216, 216, 0.75) inset;
+}
+.iconDown{
+  color: #9f838375 !important;
+}
+.serviceBg {
+
+  background-color: ghostwhite;
+}
+.d-none {
+  display: none;
+}
+.li{
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+.li:not(:last-child){
+  border-bottom: 1px solid #dcdada;
+}
+/* Define the container for the element */
+.move-left {
+    position: relative; /* To make the movement work */
+    animation: move-left-animation 20s linear infinite; /* Applying the animation */
+  }
+  
+  /* Define the keyframes for the left move animation */
+  @keyframes move-left-animation {
+    0% {
+        transform: translateX(0); /* Initial position */
+      }
+     
+      100% {
+        transform: translateX(-300px); /* Return to the original position */
+        
+
+      }
+  }
+  
+.number_block{
+    color: #4A93F6;
+}
+
+.portfolioBg {
+    background-color: whitesmoke;
+    padding: 45px;
+}
+.footerBg{
+  background-color: black;
+  color: #e3dcdce6;
+}
+
+.divderColor{
+    border-color: #ffffff26 ;
+}

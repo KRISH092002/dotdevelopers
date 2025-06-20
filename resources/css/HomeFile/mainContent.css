@@ -1,0 +1,20 @@
+.midBg{
+    background-image: url('../../../storage/app/public/assets/bg.jpg');
+    background-size: initial;
+    background-position: initial;
+    box-shadow: 25px 25px 50px 0 #1e1d1d inset, -25px -25px 50px 0 #181f20 inset; 
+    border-radius: 5px;
+}
+.l-height-4{
+    line-height: 4rem;
+}
+.main-shadow{
+    box-shadow: 8px 3px 58px 1px rgb(10 10 10 / 79%);
+-webkit-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);
+-moz-box-shadow:8px 3px 58px 1px rgb(10 10 10 / 79%);
+}
+@media (max-width: 360px) {
+    .midBg {
+        background-position: left;
+    }
+}
