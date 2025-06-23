@@ -12,7 +12,7 @@ export default function SideMenu({ user }) {
     let sideMenuList = [
         { name: 'Dashboard', icon: 'dashboard', url: 'billingapp.dashboard' },
         { name: 'Products', icon: 'dashboard', url: 'billingapp.product' },
-        { name: 'Store', icon: 'dashboard' },
+        { name: 'Store', icon: 'dashboard',  url: "billingapp.store"},
         { name: 'Messages', icon: 'dashboard' },
         { name: 'Statistics', icon: 'dashboard' },
         { name: 'Invoices', icon: 'dashboard' },
@@ -40,7 +40,7 @@ export default function SideMenu({ user }) {
         triggerMenu(false);
     };
     return (
-        <div className="sidebg">
+        <div className="sidebg ">
             <div className=" p-4 relative flex justify-start gap-1 text-[#d8dce8] ">
                 <div className="text-4xl ">
                     <FaBook />

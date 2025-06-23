@@ -1,106 +1,248 @@
 import { useState, useEffect } from 'react'
-import { usePage, useForm } from '@inertiajs/inertia-react';
+import { usePage } from '@inertiajs/inertia-react';
 import SideMenu from "./BillingAppComponents/sideMenu";
 import Input from '../common/components/inputs';
 import Divider from '../common/components/dividerComponent';
 import Popup from '../common/components/popup';
+import { axiosInstance, getRouteUrl } from '../common/components/axiosService';
+import Button from '../common/components/button';
+import useCustomForm from '../common/components/useCustomForm';
+import MultiRingLoader from '../common/components/loader';
 
 
 export default function Product() {
   const { user } = usePage().props;
-  const { data, setData, post, processing, errors, reset } = useForm({
+  const [loader, setLoader] = useState(true);
+  const [productPopup, productPopupToggle] = useState(false);
+  const [catPopup, catPopupToggle] = useState(false);
+  const [products, updateProducts] = useState([]);
+  const [categories, updateCategory] = useState([]);
+  const addCategoryData = useCustomForm({
+    category: '',
+    status: true,
+    user_id: user.id
+  });
+  const addProductData = useCustomForm({
     name: '',
     sku: '',
-    category: '',
+    category_id: '',
     purchase_price: '',
     selling_price: '',
     stock: '',
     unit: 'pcs',
     status: true,
+    user_id: user.id
   });
-  const handleSubmit = (e) => {
+  const addNewProduct = (e) => {
+    let required_fields = ['name', 'sku', 'category_id', 'purchase_price', 'selling_price', 'stock', 'unit', 'status'],
+      newErrors = addProductData.errors,
+      hasError = addProductData.hasErrors;
+    addProductData.setLoading(true)
     e.preventDefault();
-    post('/pro');
+    required_fields.forEach((key) => {
+      for (key in addProductData.data) {
+        if (Object.prototype.hasOwnProperty.call(addProductData.data, key)) {
+          const element = addProductData.data[key];
+          if (element.length == 0) {
+            newErrors[key] = true;
+            hasError = true;
+
+          }
+
+        }
+      }
+
+    })
+    addProductData.setErrors(newErrors);
+    addProductData.setHasError(hasError);
+    if (!hasError) {
+      axiosInstance.post(getRouteUrl('billingapp.add.new.product'), addProductData.data)
+        .then((response) => {
+          console.log(response)
+          debugger
+          let object = [response.data.products]
+          updateProducts(prev => ([...prev, ...object]))
+          addProductData.setLoading(false);
+          addProductData.reset();
+        })
+        .catch((error) => {
+          console.error('Error fetching projects:', error);
+        });
+    } else {
+      addProductData.setLoading(false);
+    }
+
   };
-  const [productPopup, productPopupToggle] = useState(false);
-  let products = [];
+  const addNewCategory = (e) => {
+    let required_fields = ['category'],
+      newErrors = addCategoryData.errors,
+      hasError = addCategoryData.hasErrors;
+    addCategoryData.setLoading(true)
+    e.preventDefault();
+    required_fields.forEach((key) => {
+      for (key in addCategoryData.data) {
+        if (Object.prototype.hasOwnProperty.call(addCategoryData.data, key)) {
+          const element = addCategoryData.data[key];
+          if (element.length == 0) {
+            newErrors[key] = true;
+            hasError = true;
+
+          }
+
+        }
+      }
+
+    })
+    addCategoryData.setErrors(newErrors);
+    addCategoryData.setHasError(hasError);
+    if (!hasError) {
+      axiosInstance.post(getRouteUrl('billingapp.add.new.category'), addCategoryData.data)
+        .then((response) => {
+          console.log(response)
+          let object = [response.data.categories]
+          updateCategory(prev => ([...prev, ...object]))
+          addCategoryData.setLoading(false);
+          addCategoryData.reset();
+        })
+        .catch((error) => {
+          console.error('Error fetching projects:', error);
+        });
+
+    } else {
+      addCategoryData.setLoading(false);
+    }
+
+  };
+  let getCategories = () => {
+    return new Promise((resolve, reject) => {
+      axiosInstance.post(getRouteUrl('billingapp.get.categories'), { user_id: user.id })
+        .then((response) => {
+          if (response.data.status) {
+            console.log(response)
+            resolve(response.data.categories);
+
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching projects:', error);
+        });
+
+    })
+  }
+
+  async function fetchCategories() {
+    if (categories.length == 0) {
+      let data = await getCategories();
+      updateCategory(data);
+    }
+
+  }
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axiosInstance.post(getRouteUrl('billingapp.get.products'), { user_id: user.id });
+        if (response.data.status) {
+          updateProducts(response.data.products);
+          setLoader(false);
+        }
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
+    };
+    fetchCategories();
+    fetchProducts();
+  }, []);
   const userNameCheck = async (event) => {
 
 
   };
-  let addProduct = <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
-    <h2 className="text-lg font-bold mb-4">Add New Product</h2>
-    <form onSubmit={handleSubmit}>
-      <Input type="text" label='Name' id='name' name='name' placeholder="Enter User Name" value={data.name} event='onChange' handler={(e) => setData('name', e.target.value)} Validator={true} onError={errors.name} errorMsg={errors.name} />
-      <Input type="text" label='SKU' id='SKU' name='SKU' placeholder="Enter SKU" value={data.sku} event='onChange' handler={(e) => setData('sku', e.target.value)} Validator={true} onError={errors.sku} errorMsg={errors.sku} />
-      <Input type="text" label='category' id='category' name='category' placeholder="Enter category" value={data.category} event='onChange' handler={(e) => setData('category', e.target.value)} Validator={true} onError={errors.category} errorMsg={errors.category} />
-
-      <Input type="number" label='Price' id='price' name='purchase_price' placeholder="Enter purchase_price" value={data.purchase_price} event='onChange' handler={(e) => setData('purchase_price', e.target.value)} Validator={true} onError={errors.purchase_price} errorMsg={errors.purchase_price} />
-
-      <Input type="number" label='selling Price' id='selling_price' name='selling_price' placeholder="Enter selling_price" value={data.selling_price} event='onChange' handler={(e) => setData('selling_price', e.target.value)} Validator={true} onError={errors.selling_price} errorMsg={errors.selling_price} />
-
-      <Input type="number" label='stock' id='stock' name='stock' placeholder="Enter stock" value={data.stock} event='onChange' handler={(e) => setData('stock', e.target.value)} Validator={true} onError={errors.stock} errorMsg={errors.stock} />
-
-      <Input type="select" label='unit' id='unit' name='unit' value={data.unit} event='onChange' handler={(e) => setData('unit', e.target.value)} Validator={true} onError={errors.unit} errorMsg={errors.unit} options={[
-        { value: 'pcs', name: 'pcs' },
-        { value: 'kg', name: 'kg' },
-        { value: 'ltr', name: 'ltr' }
-      ]} />
-
-      <Input type="checbox" label='status' id='status' name='status' value={data.status} event='onChange' handler={(e) => setData('status', e.target.value)} Validator={true} onError={errors.status} errorMsg={errors.status} />
+  let addCat = <div className='p-2'> <form onSubmit={addNewCategory}>
+    <Input type="text" label='category' id='category' name='category' placeholder="Enter category Name" value={addCategoryData.data.category} event='onChange' handler={(e) => addCategoryData.handleChange('category', e.target.value)} Validate={true} onError={!addCategoryData.errors.category} errorMsg='Category field is required' />
 
 
-      <button type="submit" disabled={processing} className="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
-        {processing ? 'Saving...' : 'Save Product'}
-      </button>
-    </form>
-  </div>
+    <Button submit={true} isLoading={addCategoryData.loading} type='design1' label='Add Category' disabled={addCategoryData.hasErrors} />
+  </form></div>
+
+  let addProduct = <div className='p-2'>
+    <form onSubmit={addNewProduct}>
+      <Input type="text" label='Name' id='name' name='name' placeholder="Enter Name" value={addProductData.data.name} event='onChange' handler={(e) => addProductData.handleChange('name', e.target.value)} Validate={true} onError={!addProductData.errors.name} errorMsg='The field is required' />
+      <Input type="text" label='SKU' id='SKU' name='sku' placeholder="Enter SKU" value={addProductData.data.sku} event='onChange' handler={(e) => addProductData.handleChange('sku', e.target.value)} Validate={true} onError={!addProductData.errors.sku} errorMsg='The field is required' />
+      <Input type="select" label='category' id='category' name='category_id' placeholder="Enter category" value={addProductData.data.category_id} event='onChange' handler={(e) => addProductData.handleChange('category_id', e.target.value)} Validate={true} onError={!addProductData.errors.category_id} errorMsg='The field is required' options={{ data: categories, value: 'id', name: 'category' }} />
+
+      <Input type="number" label='Price' id='price' name='purchase_price' placeholder="Enter purchase_price" value={addProductData.data.purchase_price} event='onChange' handler={(e) => addProductData.handleChange('purchase_price', e.target.value)} Validate={true} onError={!addProductData.errors.purchase_price} errorMsg='The field is required' />
+
+      <Input type="number" label='selling Price' id='selling_price' name='selling_price' placeholder="Enter selling_price" value={addProductData.data.selling_price} event='onChange' handler={(e) => addProductData.handleChange('selling_price', e.target.value)} Validate={true} onError={!addProductData.errors.selling_price} errorMsg='The field is required' />
+
+      <Input type="number" label='stock' id='stock' name='stock' placeholder="Enter stock" value={addProductData.data.stock} event='onChange' handler={(e) => addProductData.handleChange('stock', e.target.value)} Validate={true} onError={!addProductData.errors.stock} errorMsg='The field is required' />
+
+      <Input type="select" label='unit' id='unit' name='unit' value={addProductData.data.unit} event='onChange' handler={(e) => addProductData.handleChange('unit', e.target.value)} Validate={true} onError={!addProductData.errors.unit} errorMsg='The field is required' options={{
+        data: [
+          { value: 'pcs', name: 'pcs' },
+          { value: 'kg', name: 'kg' },
+          { value: 'ltr', name: 'ltr' }
+        ], value: 'value', name: 'name'
+      }} />
+
+      <Input type="checkbox" label='status' id='status' name='status' value={addProductData.data.status} event='onChange' handler={(e) => addProductData.handleChange('status', e.target.checked)} Validate={true} onError={!addProductData.errors.status} errorMsg='The field is required' />
+
+      <Button submit={true} isLoading={addProductData.loading} type='design1' label='Add Product' disabled={addProductData.hasErrors} />
+
+
+    </form></div>
+
   return (
     <div className="flex">
       <div>
         <SideMenu user={user} />
       </div>
       <div className="bg-[#f6f7fc] w-full">
-        <div className="flex gap-4">
-          <div className="grow">
-            <Input type='text' id='search' name='search' placeholder="Enter cat name" handler={userNameCheck} event='onChange' />
-          </div>
-          <div className='flex justify-center items-center'>
-            <button className='p-3 border rounded-md'>Add Button</button>
-          </div>
-          <div className='flex justify-center items-center'>
-            <button className='p-3 border rounded-md' onClick={() => productPopupToggle(prev => !prev)}>Add Category</button>
-          </div>
+        {(loader && <MultiRingLoader />)}
+        {(!loader && <>
+          <div className="flex gap-4">
+            <div className="grow">
+              <Input type='text' id='search' name='search' placeholder="Enter cat name" handler={userNameCheck} event='onChange' />
+            </div>
+            <div className='flex justify-center items-center'>
+              <button className='p-3 border rounded-md' onClick={() => { productPopupToggle(prev => !prev) }}>Add Product</button>
+            </div>
+            <div className='flex justify-center items-center'>
+              <button className='p-3 border rounded-md' onClick={() => catPopupToggle(prev => !prev)}>Add Category</button>
+            </div>
 
-        </div>
-        <Divider classArr={['bg-[#d8dce8]', 'h-[0.09rem]']} />
-        <Popup open={productPopup} element={addProduct} />
-        <div>
-          <table className="w-full border">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>SKU</th>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((p) => (
-                <tr key={p.id}>
-                  <td>{p.name}</td>
-                  <td>{p.sku}</td>
-                  <td>{p.stock}</td>
-                  <td>{p.selling_price}</td>
-                  <td>
-                    <button>Edit</button>
-                  </td>
+          </div>
+          <Divider classArr={['bg-[#d8dce8]', 'h-[0.09rem]']} />
+          <Popup open={productPopup} element={addProduct} handler={() => productPopupToggle(prev => !prev)} />
+          <Popup open={catPopup} element={addCat} handler={() => catPopupToggle(prev => !prev)} />
+          <div>
+            <table className="w-full border">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>SKU</th>
+                  <th>Stock</th>
+                  <th>Price</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {console.log(products)}
+                {products.map((p) => (
+                  <tr key={p.id}>
+                    <td>{p.name}</td>
+                    <td>{p.sku}</td>
+                    <td>{p.stock}</td>
+                    <td>{p.selling_price}</td>
+                    <td>
+                      <button>Edit</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div></>
+        )}
+
       </div>
 
     </div>

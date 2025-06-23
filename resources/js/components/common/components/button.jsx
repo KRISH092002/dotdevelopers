@@ -1,0 +1,148 @@
+
+export default function Button({ type, isLoading, handler, submit, progress , label , disabled }) {
+    let button;
+    switch (type) {
+        case 'design1':
+            button = <button
+                onClick={handler ? handler : undefined}
+                disabled={disabled || isLoading}
+                type={submit ? 'submit' : undefined}
+                className="relative px-10 py-3 rounded-lg bg-pink-600 text-white font-semibold shadow-xl hover:bg-pink-700 disabled:opacity-60 disabled:cursor-wait transition-all duration-200"
+            >
+                {isLoading && (
+                    <span className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                        <div className="relative w-4 h-4">
+                            <div className="absolute inset-0 rounded-full bg-pink-300 opacity-75 animate-ping"></div>
+                            <div className="relative w-4 h-4 bg-white rounded-full"></div>
+                        </div>
+                    </span>
+                )}
+                {isLoading ? 'Processing...' : label}
+            </button>
+            break;
+        case 'design2':
+            button = <button
+                onClick={handler ? handler : undefined}
+                disabled={isLoading}
+                className="relative flex items-center justify-center w-52 h-12 rounded-md bg-cyan-600 text-white font-semibold hover:bg-cyan-700 disabled:cursor-wait transition-all"
+            >
+                {isLoading ? (
+                    <svg className="w-7 h-7 animate-spin" viewBox="0 0 50 50">
+                        <defs>
+                            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#06b6d4" />
+                                <stop offset="100%" stopColor="#3b82f6" />
+                            </linearGradient>
+                        </defs>
+                        <circle
+                            cx="25"
+                            cy="25"
+                            r="20"
+                            fill="none"
+                            stroke="url(#grad)"
+                            strokeWidth="4"
+                            strokeDasharray="100"
+                            strokeDashoffset="60"
+                            strokeLinecap="round"
+                        />
+                    </svg>
+                ) : (
+                    'Gradient Ring Spinner'
+                )}
+            </button>
+            break;
+        case 'progress_btn':
+            button = <button
+                onClick={handler ? handler : undefined}
+                disabled={isLoading}
+                className="relative w-56 h-12 text-white bg-blue-600 rounded-md overflow-hidden shadow-md hover:bg-blue-700 disabled:cursor-wait transition-all"
+            >
+                <span className="relative z-10">
+                    {isLoading ? `Processing... ${progress}%` : 'Submit with Progress'}
+                </span>
+
+                {/* Progress Bar */}
+                {isLoading && (
+                    <span
+                        className="absolute left-0 top-0 h-full bg-blue-400 opacity-30 transition-all duration-75"
+                        style={{ width: `${progress}%` }}
+                    />
+                )}
+            </button>
+            break;
+        case "circular_progress":
+            const radius = 12;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (progress / 100) * circumference;
+            button = <button
+                onClick={handler ? handler : undefined}
+                disabled={isLoading}
+                className="relative w-56 h-12 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 disabled:opacity-70 disabled:cursor-wait flex items-center justify-center gap-3"
+            >
+                {isLoading && (
+                    <svg className="w-6 h-6" viewBox="0 0 30 30">
+                        <circle
+                            cx="15"
+                            cy="15"
+                            r={radius}
+                            stroke="#ffffff30"
+                            strokeWidth="4"
+                            fill="none"
+                        />
+                        <circle
+                            cx="15"
+                            cy="15"
+                            r={radius}
+                            stroke="white"
+                            strokeWidth="4"
+                            fill="none"
+                            strokeDasharray={circumference}
+                            strokeDashoffset={offset}
+                            strokeLinecap="round"
+                            className="transition-all duration-75"
+                        />
+                    </svg>
+                )}
+                <span className="z-10">
+                    {isLoading ? `Loading ${progress}%` : 'Start Circular Loader'}
+                </span>
+            </button>
+            break;
+
+        case 'drag&drop_btn':
+            button = <button className="w-full border-2 border-dashed border-gray-400 rounded-lg p-6 text-gray-300 hover:border-blue-400 hover:text-blue-400 transition-colors">
+                Drag & Drop files or <span className="underline text-blue-500">browse</span>
+            </button>
+            break;
+        case 'icon_btn':
+            button = <button className="w-12 h-12 flex items-center justify-center bg-gradient-to-tr from-blue-600 to-teal-400 text-white rounded-full hover:scale-110 transition duration-300 shadow-lg">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v9m0-9l-3.5 3.5M12 12l3.5 3.5M12 3v9" />
+                </svg>
+            </button>
+            break;
+
+        case 'normal_btn':
+            button = <button className="relative px-6 py-3 rounded-md bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all duration-300 hover:from-purple-500 hover:to-pink-500 hover:scale-105 shadow-md">
+                🚀 Upload Now
+            </button>
+            break;
+        case 'simple_btn':
+            button = <button className="flex items-center gap-2 px-5 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition shadow-md">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v9m0-9l-3.5 3.5M12 12l3.5 3.5M12 3v9" />
+                </svg>
+                Launch Modal
+            </button>
+            break;
+        default:
+            button = <button
+                className="relative px-6 py-3 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600 transition group"
+            >
+                <span className="block group-hover:hidden">Upload File</span>
+                <span className="hidden group-hover:block">Let’s Go 🚀</span>
+            </button>
+            break;
+    }
+    return button
+}
