@@ -1,5 +1,5 @@
 
-export default function Button({ type, isLoading, handler, submit, progress , label , disabled }) {
+export default function Button({ type,isLoading, handler, submit, progress , label , disabled }) {
     let button;
     switch (type) {
         case 'design1':
@@ -23,8 +23,9 @@ export default function Button({ type, isLoading, handler, submit, progress , la
         case 'design2':
             button = <button
                 onClick={handler ? handler : undefined}
-                disabled={isLoading}
-                className="relative flex items-center justify-center w-52 h-12 rounded-md bg-cyan-600 text-white font-semibold hover:bg-cyan-700 disabled:cursor-wait transition-all"
+                disabled={disabled || isLoading}
+                type={submit ? 'submit' : undefined}
+                className="relative flex items-center justify-center  h-12 rounded-md bg-cyan-600 text-white font-semibold hover:bg-cyan-700 disabled:cursor-wait transition-all"
             >
                 {isLoading ? (
                     <svg className="w-7 h-7 animate-spin" viewBox="0 0 50 50">
@@ -47,7 +48,7 @@ export default function Button({ type, isLoading, handler, submit, progress , la
                         />
                     </svg>
                 ) : (
-                    'Gradient Ring Spinner'
+                    label
                 )}
             </button>
             break;

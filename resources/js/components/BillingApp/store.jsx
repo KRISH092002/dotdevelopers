@@ -41,10 +41,10 @@ export default function Store() {
 
     return (
         <div className="flex">
-            <div className='fixed'>
+            <div className='fixed shadow-md'>
                 <SideMenu user={user} />
             </div>
-            <div className="bg-[#f6f7fc] absolute left-[15rem]" style={{width : 'calc(100% - 15rem)' }} >
+            <div className="bg-white shadow-md rounded-md absolute left-[15rem] p-2" style={{width : 'calc(100% - 15rem)' }} >
                 {(loader && <div className='h-[100vh]'><MultiRingLoader /></div>)}
                 {(!loader && <div className='p-4'>
                     <div className="flex gap-4">
@@ -64,25 +64,25 @@ export default function Store() {
                         return (<div key={ind}>
 
 
-                            <div className='p-2 my-1 rounded-md text-white uppercase roboto-condensed-font bg-indigo-400 w-full'>{cat.category}</div>
-                            {(cat.products.length > 0 && <div className='bg-gray-300 p-2 rounded-sm'>
+                            <div className='p-2 my-1 rounded-md text-white uppercase roboto-condensed-font text-center bg-indigo-400 w-full'>{cat.category}</div>
+                            {(cat.products.length > 0 && <div className='bg-white shadow-md p-2 rounded-md'>
                                 <table className='text-center table-fixed w-full my-4'>
                                     <thead className=' '>
-                                        <tr className='border-b-2  border-gray-100'>
-                                            <th className='  '>Product Name</th>
-                                            <th className='  '>SKU</th>
-                                            <th className='  '>Stock</th>
-                                            <th className='  '>Purchase Price</th>
-                                            <th className=' '>Selling Price</th>                                        </tr>
+                                        <tr className='border-b-2  border-black-500 uppercase roboto-condensed-font'>
+                                            <th className=' p-2 '>Product Name</th>
+                                            <th className=' p-2 '>SKU</th>
+                                            <th className=' p-2 '>Stock</th>
+                                            <th className=' p-2 '>Purchase Price</th>
+                                            <th className='p-2 '>Selling Price</th>                                        </tr>
                                     </thead>
                                     <tbody className=''>
                                         {
                                             cat.products && cat.products.map((prod, ind2) => {
                                                 return (<tr className='' key={ind2}>
-                                                    <td className='  '>{prod.name}</td>
-                                                    <td className='  '>{prod.sku}</td>
-                                                    <td className=' '>{prod.stock}{prod.unit}</td>
-                                                    <td className='  '>{prod.purchase_price}</td>
+                                                    <td className=' p-2 '>{prod.name}</td>
+                                                    <td className=' p-2 '>{prod.sku}</td>
+                                                    <td className='p-2 '>{prod.stock}{prod.unit}</td>
+                                                    <td className='  p-2'>{prod.purchase_price}</td>
                                                     <td className=''>{prod.selling_price}</td>
                                                 </tr>)
                                             })

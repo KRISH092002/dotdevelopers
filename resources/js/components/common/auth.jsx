@@ -3,11 +3,18 @@ import Input from './components/inputs';
 import { axiosInstance, getRouteUrl } from '../common/components/axiosService';
 import { usePage } from '@inertiajs/inertia-react';
 import Icon from './components/icon';
+import Popup from './components/popup';
+import useCustomForm from './components/useCustomForm';
+import Button from './components/button';
 
 export default function Auth({ isOpen }) {
   const profile = '/storage/assets/default-img.png';
   const { user } = usePage().props;
   const [open, setOpen] = useState(isOpen ?? true);
+  const loginData = useCustomForm({
+    email: '',
+    password : ''
+  });
   const [emailValid, setResponse] = useState({ bool: false, message: 'Please fill out this field.' });
   const [userNameValid, userResponse] = useState({ bool: false, message: 'Please fill out this field.' });
   const [newPassValid, passwordCheck] = useState({ bool: false, message: 'The password must be at least 8 characters.' });
@@ -114,7 +121,28 @@ export default function Auth({ isOpen }) {
 
   const loginSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
-    if (!btnDisabled) {
+      let required_fields = ['email' , 'password'],
+      newErrors = loginData.errors,
+      hasError = loginData.hasErrors;
+    loginData.setLoading(true)
+    e.preventDefault();
+    required_fields.forEach((key) => {
+      for (key in loginData.data) {
+        if (Object.prototype.hasOwnProperty.call(loginData.data, key)) {
+          const element = loginData.data[key];
+          if (element.length == 0) {
+            newErrors[key] = true;
+            hasError = true;
+
+          }
+
+        }
+      }
+
+    })
+    loginData.setErrors(newErrors);
+    loginData.setHasError(hasError);
+    if (!hasError) {
       let fd = new FormData(e.target)
       axiosInstance.post('/login', fd)
         .then((response) => {
@@ -142,7 +170,7 @@ export default function Auth({ isOpen }) {
       })
       .catch((error) => {
         console.error('Error fetching projects:', error);
-    });
+      });
   }
   const handleMouseLeave = () => {
     triggerMenu(false);
@@ -160,7 +188,7 @@ export default function Auth({ isOpen }) {
     }
   }, [open, emailValid, userNameValid, newPassValid]);
 
-  let signUp = <form onSubmit={signUpSubmit}>
+  let signUp = <div> <form onSubmit={signUpSubmit}>
     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div className="flex flex-wrap ">
         <div className='w-1/2'>
@@ -176,24 +204,42 @@ export default function Auth({ isOpen }) {
       <Input required={true} type='password' label='Password' id='new_password' name='new_password' placeholder="******************" event='onChange' handler={newPasswordValid} Validate={true} onError={!newPassValid.bool} errorMsg={newPassValid.message} />
       <Input required={true} type='password' label='Confirm Password' id='conf_password' name='conf_password' placeholder="***********" event='onChange' handler={passwordValid} Validate={true} onError={!confPassValid.bool} errorMsg={confPassValid.message} />
     </div>
+    <div className='text-gray-500 text-sm text-center'>
+
+      {setLogin && (
+        <span onClick={() => { switchMode(!setLogin) }}>Don't have an account</span>
+      )}
+      {!setLogin && (
+        <span onClick={() => { switchMode(!setLogin) }}>Already have an account</span>
+      )}
+    </div>
     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
       <button type="submit" disabled={btnDisabled} className="inline-flex w-full justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-gray-500 sm:ml-3 sm:w-auto bg-" >LOGIN</button>
       {window.location.pathname != '/login' && (<button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => setOpen(false)}>CANCEL</button>)}
     </div>
   </form>
-
-  let login = <form onSubmit={loginSubmit}>
+  </div>
+  let login = <div><form onSubmit={loginSubmit}>
     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-      <Input required={true} type='email' label='Email' event='onBlur' handler={emailCheck} id='email' name='email' placeholder="Enter email" Validate={true} onError={!emailValid.bool} errorMsg={emailValid.message} />
+      <Input required={true} type='email' label='Email' event='onChange' handler={(e) => loginData.handleChange('email', e.target.value , e)} id='email' name='email' placeholder="Enter email" Validate={true} onError={!loginData.errors.email} errorMsg={loginData.errors.email} />
 
-      <Input required={true} type='password' label='Password' id='password' name='password' placeholder="******************" event='onChange' handler={newPasswordValid} Validate={true} onError={!newPassValid.bool} errorMsg={newPassValid.message} />
+      <Input required={true} type='password' label='Password' id='password' name='password' placeholder="******************" event='onChange' handler={(e) => loginData.handleChange('password', e.target.value , e)} Validate={true} onError={!loginData.errors.password} errorMsg={loginData.errors.password} />
 
     </div>
+    <div className='text-gray-500 text-sm text-center'>
+      {setLogin && (
+        <span onClick={() => { switchMode(!setLogin) }}>Don't have an account</span>
+      )}
+      {!setLogin && (
+        <span onClick={() => { switchMode(!setLogin) }}>Already have an account</span>
+      )}
+    </div>
     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-      <button type="submit" disabled={btnDisabled} className="inline-flex w-full justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-gray-500 sm:ml-3 sm:w-auto bg-" >LOGIN</button>
+      <Button type = 'design2' label='Login' isLoading={loginData.loading} disabled={loginData.hasErrors} submit={true}/>
       {window.location.pathname != '/login' && (<button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => setOpen(false)}>CANCEL</button>)}
     </div>
   </form>
+  </div>
   let guest = window.location.pathname != '/login' && (<button onClick={(event) => { setOpen(!open); event.stopPropagation(); }}>
     Sign up
   </button>);
@@ -221,31 +267,8 @@ export default function Auth({ isOpen }) {
   return (
     <>
       {user && user.id ? auth : guest}
-      {
-        open && (
-          <div className={open ? 'show' : 'hide'}>
+      <Popup open={open} element={setLogin ? login : signUp} handler={() => setOpen(false)} />
 
-            <div className="relative z-10 bg_backdrop" aria-labelledby="dialog-title" role="dialog" aria-modal="true">
-              <div className="fixed inset-0 bg-gray-500/75 transition-opacity " aria-hidden="true" ></div>
-
-              <div className="fixed inset-0 z-10 w-screen overflow-y-auto animate-dialog-panel">
-                <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                  <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg ">
-                    {setLogin ? login : signUp}
-                    {setLogin && (
-                      <span onClick={() => { switchMode(!setLogin) }}>Don't have an account</span>
-                    )}
-                    {!setLogin && (
-                      <span onClick={() => { switchMode(!setLogin) }}>Already have an account</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        )
-      }
     </>
   )
 }

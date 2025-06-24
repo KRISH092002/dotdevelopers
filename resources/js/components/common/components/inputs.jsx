@@ -8,8 +8,8 @@ export default function Input(props) {
       // h-[5rem]
       input =
         <div className="w-full px-3 mb-3 ">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
-          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+          <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <input className="appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-indigo-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
           {Validate && (
             <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
               {errorMsg ? errorMsg : 'required field.'}
@@ -21,7 +21,7 @@ export default function Input(props) {
       input =
         <div className="w-full px-3 mb-3 ">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
-          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
           {Validate && (
             <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
               {errorMsg ? errorMsg : 'required field.'}

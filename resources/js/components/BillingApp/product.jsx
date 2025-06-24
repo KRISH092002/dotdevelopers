@@ -193,47 +193,49 @@ export default function Product() {
 
   return (
     <div className="flex">
-      <div>
+      <div className='fixed shadow-md'>
         <SideMenu user={user} />
       </div>
-      <div className="bg-[#f6f7fc] w-full">
-        {(loader && <MultiRingLoader />)}
+      <div className="bg-white   rounded-md  shadow-md absolute left-[15rem] h-full" style={{ width: 'calc(100% - 15rem)' }}>
+        {(loader && <div className='h-[100vh]'><MultiRingLoader /></div>)}
         {(!loader && <>
-          <div className="flex gap-4">
-            <div className="grow">
-              <Input type='text' id='search' name='search' placeholder="Enter cat name" handler={userNameCheck} event='onChange' />
-            </div>
-            <div className='flex justify-center items-center'>
-              <button className='p-3 border rounded-md' onClick={() => { productPopupToggle(prev => !prev) }}>Add Product</button>
-            </div>
-            <div className='flex justify-center items-center'>
-              <button className='p-3 border rounded-md' onClick={() => catPopupToggle(prev => !prev)}>Add Category</button>
+          <div className='sticky top-0 p-2 '>
+            <div className="flex gap-2 pr-3 rounded-md bg-indigo-200">
+              <div className="grow">
+                <Input type='text' id='search' name='search' placeholder="Enter cat name" handler={userNameCheck} event='onChange' />
+              </div>
+              <div className='flex justify-center items-center'>
+                <button className='p-3 border rounded-md' onClick={() => { productPopupToggle(prev => !prev) }}>Add Product</button>
+              </div>
+              <div className='flex justify-center items-center'>
+                <button className='p-3 border rounded-md' onClick={() => catPopupToggle(prev => !prev)}>Add Category</button>
+              </div>
+
             </div>
 
           </div>
           <Divider classArr={['bg-[#d8dce8]', 'h-[0.09rem]']} />
           <Popup open={productPopup} element={addProduct} handler={() => productPopupToggle(prev => !prev)} />
           <Popup open={catPopup} element={addCat} handler={() => catPopupToggle(prev => !prev)} />
-          <div>
-            <table className="w-full border">
-              <thead>
+          <div className='bg-white mt-4 h-full '>
+            <table className="w-full table-fixed text-center">
+              <thead className='border-b-2 border-gray-300 roboto-condensed-font'>
                 <tr>
-                  <th>Name</th>
-                  <th>SKU</th>
-                  <th>Stock</th>
-                  <th>Price</th>
-                  <th>Action</th>
+                  <th className='p-2'>Name</th>
+                  <th className='p-2'>SKU</th>
+                  <th className='p-2'>Stock</th>
+                  <th className='p-2'>Price</th>
+                  <th className='p-2'>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {console.log(products)}
                 {products.map((p) => (
                   <tr key={p.id}>
-                    <td>{p.name}</td>
-                    <td>{p.sku}</td>
-                    <td>{p.stock}</td>
-                    <td>{p.selling_price}</td>
-                    <td>
+                    <td className='p-2'>{p.name}</td>
+                    <td className='p-2'>{p.sku}</td>
+                    <td className='p-2'>{p.stock}</td>
+                    <td className='p-2'>{p.selling_price}</td>
+                    <td className='p-2'>
                       <button>Edit</button>
                     </td>
                   </tr>

@@ -40,8 +40,8 @@ export default function SideMenu({ user }) {
         triggerMenu(false);
     };
     return (
-        <div className="sidebg ">
-            <div className=" p-4 relative flex justify-start gap-1 text-[#d8dce8] ">
+        <div className="sidebg rounded-lg shadow-lg p-2">
+            <div className="rounded-md mb-2 bg-gray-600 p-4 relative flex justify-start gap-1 text-[#d8dce8] ">
                 <div className="text-4xl ">
                     <FaBook />
                 </div>
@@ -52,8 +52,8 @@ export default function SideMenu({ user }) {
 
                 </div>
             </div>
-            <Divider classArr={['bg-[#d8dce8]', 'h-[0.09rem]']} />
-            <div className="text-white p-2">
+            <Divider classArr={['bg-[#d8dce8]', 'h-[0.09rem]' , 'mb-2']} />
+            <div className="text-white mb-2 bg-gray-600 p-2 rounded-md">
                 {(user && <div className='flex justify-evenly text-[0.7rem] gap-[0.5rem]'>
                     <div className='flex justify-center items-center'>
                         <div className='w-[2rem] h-[2rem] rounded-[50%] border-2 border-white'>
@@ -77,12 +77,12 @@ export default function SideMenu({ user }) {
                 </div>)}
 
             </div>
-            <div className="text-[#676d79] smooch-sans-font">
+            <div className="rounded-md mb-2 bg-gray-600 text-[#676d79] smooch-sans-font">
                 <div className="flex flex-col ">
                     {sideMenuList.map((el, ind) => {
                         // #9498a0
                         return (
-                            <div className={`flex  gap-2 text-[#fff] px-6 py-4 ${el.url ? (getRouteUrl(el.url) == window.location.href ? 'active' : '') : ''} hover:bg-[#9498a0]`} key={ind} onClick={() => { redirectToComp(el.url ? getRouteUrl(el.url) : '') }}>
+                            <div className={`flex  gap-2 text-[#fff] px-6 py-4 ${el.url ? (getRouteUrl(el.url) == window.location.href ? 'active last:rounded-b-md first:rounded-t-md' : '') : ''} hover:bg-[#9498a0] last:hover:rounded-b-md first:hover:rounded-t-md`} key={ind} onClick={() => { redirectToComp(el.url ? getRouteUrl(el.url) : '') }}>
                                 <div className="flex justify-center items-center">
                                     <Icon name={el.icon} size="1.5rem" />
                                 </div>
