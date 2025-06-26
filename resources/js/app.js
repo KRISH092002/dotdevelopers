@@ -14,7 +14,6 @@ window.Ziggy = Ziggy;
 
 
 
-
 const el = document.getElementById('app');
 
 createRoot(el).render(
