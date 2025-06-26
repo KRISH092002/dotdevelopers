@@ -201,13 +201,13 @@ export default function Store() {
                 {(!loader && <div className='p-4'>
                     <div className="flex gap-4">
                         <div className="grow">
-                            <Input type='text' id='search' name='search' placeholder="Enter cat name" handler={userNameCheck} event='onChange' />
+                            <Input type='text' id='search' name= 'search' placeholder="Enter cat name" handler={userNameCheck} event='onChange' />
                         </div>
                         <div className='flex justify-center items-center'>
-                            <Button type='simple_btn' label='Add Product' handler={() => { productPopupToggle(prev => !prev) }}/>
+                            <Button type='simple_btn' label='Add Product' handler={() => { productPopupToggle(prev => !prev) }} className={[' hover:bg-blue-700' , 'bg-blue-600']}/>
                         </div>
                         <div className='flex justify-center items-center'>
-                            <Button type='simple_btn' label='Add Category' handler={() => catPopupToggle(prev => !prev)}/>
+                            <Button type='simple_btn' label='Add Category' className={[' hover:bg-blue-700' , 'bg-blue-600']} handler={() => catPopupToggle(prev => !prev)}/>
                         </div>
 
                     </div>

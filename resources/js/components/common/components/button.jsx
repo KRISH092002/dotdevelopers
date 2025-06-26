@@ -129,7 +129,7 @@ export default function Button({ type,isLoading,svg, handler, submit, progress ,
             </button>
             break;
         case 'simple_btn':
-            button = <button className="flex items-center gap-2 px-5 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition shadow-md" onClick={handler ? handler : undefined}>
+            button = <button className={`flex items-center gap-2 px-5 py-2 rounded-md  text-white transition shadow-md ${className.join(' ')}`} onClick={handler ? handler : undefined}>
                { (svg ? svg :<svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v9m0-9l-3.5 3.5M12 12l3.5 3.5M12 3v9" />
                 </svg>)}
