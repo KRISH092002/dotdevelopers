@@ -1,5 +1,5 @@
 
-export default function Button({ type,isLoading, handler, submit, progress , label , disabled }) {
+export default function Button({ type,isLoading,svg, handler, submit, progress , label , disabled ,className }) {
     let button;
     switch (type) {
         case 'design1':
@@ -25,14 +25,14 @@ export default function Button({ type,isLoading, handler, submit, progress , lab
                 onClick={handler ? handler : undefined}
                 disabled={disabled || isLoading}
                 type={submit ? 'submit' : undefined}
-                className="relative flex items-center justify-center  h-12 rounded-md bg-cyan-600 text-white font-semibold hover:bg-cyan-700 disabled:cursor-wait transition-all"
+                className={`relative flex items-center justify-center   rounded-md text-white font-semibold  disabled:opacity-50  disabled:cursor-wait transition-all ${className && className.join(' ')}`}
             >
                 {isLoading ? (
                     <svg className="w-7 h-7 animate-spin" viewBox="0 0 50 50">
                         <defs>
                             <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stopColor="#06b6d4" />
-                                <stop offset="100%" stopColor="#3b82f6" />
+                                <stop offset="0%" stopColor="#f0f2f2" />
+                                <stop offset="100%" stopColor="#e5e6e8" />
                             </linearGradient>
                         </defs>
                         <circle
@@ -129,11 +129,11 @@ export default function Button({ type,isLoading, handler, submit, progress , lab
             </button>
             break;
         case 'simple_btn':
-            button = <button className="flex items-center gap-2 px-5 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition shadow-md">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            button = <button className="flex items-center gap-2 px-5 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition shadow-md" onClick={handler ? handler : undefined}>
+               { (svg ? svg :<svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v9m0-9l-3.5 3.5M12 12l3.5 3.5M12 3v9" />
-                </svg>
-                Launch Modal
+                </svg>)}
+                {  label}
             </button>
             break;
         default:

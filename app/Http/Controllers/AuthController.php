@@ -46,11 +46,14 @@ class AuthController extends Controller
                 'status' => true,
                 'redirect' => '/dashboard'
             ]); // or home
+        }else{
+            return response()->json([
+                'status' => true,
+                'error' => 'Invalid'
+            ]);
         }
 
-        return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ]);
+        
     }
 
     public function logout(Request $request)

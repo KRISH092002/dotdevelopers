@@ -13,96 +13,120 @@ export default function Auth({ isOpen }) {
   const [open, setOpen] = useState(isOpen ?? true);
   const loginData = useCustomForm({
     email: '',
-    password : ''
+    password: ''
   });
-  const [emailValid, setResponse] = useState({ bool: false, message: 'Please fill out this field.' });
-  const [userNameValid, userResponse] = useState({ bool: false, message: 'Please fill out this field.' });
-  const [newPassValid, passwordCheck] = useState({ bool: false, message: 'The password must be at least 8 characters.' });
-  const [confPassValid, confirmCheck] = useState({ bool: false, message: 'Oops! Password and confirm password must be identical.' });
+  const signUpData = useCustomForm({
+    first_name: '',
+    last_name: '',
+    user_name: '',
+    email: '',
+    new_password: '',
+    conf_password: '',
 
-  const [btnDisabled, disableBtn] = useState(true);
+
+  });
   const [setLogin, switchMode] = useState(true);
   const [menu, triggerMenu] = useState(false);
 
   const emailCheck = async (event) => {
-    let email = event.target.value;
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    try {
-      if (setLogin) {
-        if (email && email.length == 0) {
-          setResponse({ bool: true, message: 'Please fill out this field.' });
-        } else {
-          setResponse({ bool: false, message: 'Please fill out this field.' });
-        }
-      } else {
-        if (regex.test(email)) {
-          const res = await fetch('/check/email', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify({ email }),
-          });
-
-          const data = await res.json();
-          setResponse(data);
-        } else {
-          setResponse({ bool: true, message: 'Please fill out this field with valid email.' });
-        }
-
-      }
-    } catch (error) {
-      setResponse({ bool: true, message: 'Please fill out this field.' });
-    } finally {
+    if (signUpData.tm1) {
+      clearTimeout(signUpData.tm1)
     }
+    signUpData.tm1 = setTimeout(async () => {
+      signUpData.setLoading(true)
+      let email = event.target.value;
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (regex.test(email)) {
+        const res = await fetch('/check/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          },
+          body: JSON.stringify({ email }),
+        });
 
+        const data = await res.json();
+        signUpData.handleChange('email', event.target.value, event)
+        // signUpData.setErrors("email", data.message)
+        signUpData.setLoading(false)
+      } else {
+        signUpData.setErrors("email", 'Please fill out this field with valid email.')
+        signUpData.setHasError(true)
+        signUpData.setLoading(false)
+      }
+
+    }, 1000)
 
   };
   const userNameCheck = async (event) => {
-    let userName = event.target.value;
-    try {
-      const res = await fetch('/check/user_name', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-        },
-        body: JSON.stringify({ userName }),
-      });
-
-      const data = await res.json();
-      userResponse(data);
-    } catch (error) {
-      userResponse({ bool: true, message: 'Please fill out this field.' });
-    } finally {
+    if (signUpData.tm2) {
+      clearTimeout(signUpData.tm2)
     }
+    signUpData.tm2 = setTimeout(async () => {
+      signUpData.setLoading(true)
+      let userName = event.target.value;
+      try {
+        const res = await fetch('/check/user_name', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          },
+          body: JSON.stringify({ userName }),
+        });
+
+        const data = await res.json();
+        signUpData.handleChange('user_name', event.target.value, event)
+        // signUpData.setErrors('user_name', data.message)
+        signUpData.setLoading(false)
+      } catch (error) {
+        signUpData.setErrors('user_name', 'Invalid User Name')
+        signUpData.setHasError(true)
+        signUpData.setLoading(false)
+      } finally {
+      }
+
+    }, 1000)
 
   };
   const passwordValid = (event) => {
     let confPass = event.target.value;
     let new_password = document.querySelector('#new_password').value
     if (new_password == confPass) {
-      confirmCheck({ bool: false, message: 'The password must be at least 8 characters.' })
+      signUpData.handleChange('conf_password', event.target.value, event)
     } else {
-      confirmCheck({ bool: true, message: 'Oops! Password and confirm password must be identical.' })
+      signUpData.setErrors('conf_password', 'Oops! Password and confirm password must be identical.')
+      signUpData.setHasError(true)
     }
 
 
   };
-  const newPasswordValid = (event) => {
-    let new_password = event.target.value
-    if (new_password && new_password.length < 8) {
-      passwordCheck({ bool: true, message: 'The password must be at least 8 characters.' })
-    } else {
-      passwordCheck({ bool: false, message: 'The password must be at least 8 characters.' })
-    }
 
-
-  };
   const signUpSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
-    if (!btnDisabled) {
+    let required_fields = ['first_name', 'last_name', 'user_name', 'email', 'new_password', 'conf_password'],
+      newErrors = signUpData.errors,
+      hasError = signUpData.hasErrors;
+    signUpData.setLoading(true)
+    e.preventDefault();
+    required_fields.forEach((key) => {
+      for (key in signUpData.data) {
+        if (Object.prototype.hasOwnProperty.call(signUpData.data, key)) {
+          const element = signUpData.data[key];
+          if (element.length == 0) {
+            newErrors[key] = 'The field is required';
+            hasError = true;
+
+          }
+
+        }
+      }
+
+    })
+    signUpData.setErrors(newErrors);
+    signUpData.setHasError(hasError);
+    if (!hasError) {
       let fd = new FormData(e.target)
       axiosInstance.post('/signup', fd)
         .then((response) => {
@@ -114,6 +138,9 @@ export default function Auth({ isOpen }) {
         .catch((error) => {
           console.error('Error fetching projects:', error);
         });
+    } else {
+      // signUpData.reset()
+      signUpData.setLoading(false)
     }
 
 
@@ -121,7 +148,7 @@ export default function Auth({ isOpen }) {
 
   const loginSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
-      let required_fields = ['email' , 'password'],
+    let required_fields = ['email', 'password'],
       newErrors = loginData.errors,
       hasError = loginData.hasErrors;
     loginData.setLoading(true)
@@ -131,7 +158,7 @@ export default function Auth({ isOpen }) {
         if (Object.prototype.hasOwnProperty.call(loginData.data, key)) {
           const element = loginData.data[key];
           if (element.length == 0) {
-            newErrors[key] = true;
+            newErrors[key] = 'The field is required';
             hasError = true;
 
           }
@@ -149,11 +176,17 @@ export default function Auth({ isOpen }) {
           response = response.data;
           if (response.redirect) {
             window.location.href = response.redirect;
+          } else if (response.error == 'Invalid') {
+            loginData.reset();
+            signUpData.handleChange('email', loginData.data.email)
+            switchMode(!setLogin)
           }
         })
         .catch((error) => {
           console.error('Error fetching projects:', error);
         });
+    } else {
+      loginData.setLoading(false)
     }
 
 
@@ -181,28 +214,26 @@ export default function Auth({ isOpen }) {
     } else {
       // Do something when closed
     }
-    if (newPassValid.bool && confPassValid.bool && userNameValid.bool && emailValid.bool) {
-      disableBtn(true)
-    } else {
-      disableBtn(false)
-    }
-  }, [open, emailValid, userNameValid, newPassValid]);
+
+  }, [open, loginData, signUpData]);
 
   let signUp = <div> <form onSubmit={signUpSubmit}>
     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div className="flex flex-wrap ">
         <div className='w-1/2'>
-          <Input type='text' label='First Name' id='first_name' name='first_name' placeholder="Enter User Name" Validate={false} required={true} />
+          <Input type='text' label='First Name' id='first_name' event='onChange' name='first_name' placeholder="Enter First Name" value={signUpData.data.first_name} required={false} handler={(e) => signUpData.handleChange('first_name', e.target.value, e)} Validate={true} onError={!signUpData.errors.first_name} errorMsg={signUpData.errors.first_name} />
         </div>
         <div className='w-1/2'>
-          <Input type='text' label='Last Name' id='last_name' name='last_name' placeholder="Enter User Name" Validate={false} required={true} />
+          <Input type='text' label='Last Name' value={signUpData.data.last_name} id='last_name' name='last_name' placeholder="Enter last Name" Validate={true} required={false} event='onChange' onError={!signUpData.errors.last_name} errorMsg={signUpData.errors.last_name} handler={(e) => signUpData.handleChange('last_name', e.target.value, e)} />
         </div>
       </div>
-      <Input required={true} type='text' label='User Name' id='user_name' name='user_name' placeholder="Enter User Name" Validate={true} handler={userNameCheck} onError={!userNameValid.bool} errorMsg={userNameValid.message} event='onBlur' />
-      <Input required={true} type='email' label='Email' event='onBlur' handler={emailCheck} id='email' name='email' placeholder="Enter email" Validate={true} onError={!emailValid.bool} errorMsg={emailValid.message} />
+      <Input required={false} type='text' label='User Name' id='user_name' name='user_name' placeholder="Enter User Name" Validate={true} handler={userNameCheck} onError={!signUpData.errors.user_name} errorMsg={signUpData.errors.user_name} event='onChange' />
 
-      <Input required={true} type='password' label='Password' id='new_password' name='new_password' placeholder="******************" event='onChange' handler={newPasswordValid} Validate={true} onError={!newPassValid.bool} errorMsg={newPassValid.message} />
-      <Input required={true} type='password' label='Confirm Password' id='conf_password' name='conf_password' placeholder="***********" event='onChange' handler={passwordValid} Validate={true} onError={!confPassValid.bool} errorMsg={confPassValid.message} />
+      <Input required={false} type='email' label='Email' event='onChange' handler={emailCheck} id='email' name='email' placeholder="Enter email" Validate={true} onError={!signUpData.errors.email} errorMsg={signUpData.errors.email} />
+
+      <Input required={false} type='password' label='Password' id='new_password' name='new_password' placeholder="***********" event='onChange' value={signUpData.data.new_password} handler={(e) => signUpData.handleChange('new_password', e.target.value, e)} Validate={true} onError={!signUpData.errors.new_password} errorMsg={signUpData.errors.new_password} />
+
+      <Input required={false} type='password' value={signUpData.data.conf_password} label='Confirm Password' id='conf_password' name='conf_password' placeholder="***********" event='onChange' handler={passwordValid} Validate={true} onError={!signUpData.errors.conf_password} errorMsg={signUpData.errors.conf_password} />
     </div>
     <div className='text-gray-500 text-sm text-center'>
 
@@ -214,16 +245,16 @@ export default function Auth({ isOpen }) {
       )}
     </div>
     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-      <button type="submit" disabled={btnDisabled} className="inline-flex w-full justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-gray-500 sm:ml-3 sm:w-auto bg-" >LOGIN</button>
-      {window.location.pathname != '/login' && (<button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => setOpen(false)}>CANCEL</button>)}
+      <Button type='design2' label='Login' className={['sm:w-24', 'sm:h-10', 'bg-sky-500', 'hover:bg-sky-400']} isLoading={signUpData.loading} disabled={signUpData.hasErrors} submit={true} />
+
     </div>
   </form>
   </div>
   let login = <div><form onSubmit={loginSubmit}>
     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-      <Input required={true} type='email' label='Email' event='onChange' handler={(e) => loginData.handleChange('email', e.target.value , e)} id='email' name='email' placeholder="Enter email" Validate={true} onError={!loginData.errors.email} errorMsg={loginData.errors.email} />
+      <Input required={false} type='email' label='Email' event='onChange' handler={(e) => loginData.handleChange('email', e.target.value, e)} id='email' value={loginData.data.email} name='email' placeholder="Enter email" Validate={true} onError={!loginData.errors.email} errorMsg={loginData.errors.email} />
 
-      <Input required={true} type='password' label='Password' id='password' name='password' placeholder="******************" event='onChange' handler={(e) => loginData.handleChange('password', e.target.value , e)} Validate={true} onError={!loginData.errors.password} errorMsg={loginData.errors.password} />
+      <Input required={false} type='password' label='Password' value={loginData.data.password} id='password' name='password' placeholder="******************" event='onChange' handler={(e) => loginData.handleChange('password', e.target.value, e)} Validate={true} onError={!loginData.errors.password} errorMsg={loginData.errors.password} />
 
     </div>
     <div className='text-gray-500 text-sm text-center'>
@@ -235,12 +266,12 @@ export default function Auth({ isOpen }) {
       )}
     </div>
     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-      <Button type = 'design2' label='Login' isLoading={loginData.loading} disabled={loginData.hasErrors} submit={true}/>
-      {window.location.pathname != '/login' && (<button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => setOpen(false)}>CANCEL</button>)}
+      <Button type='design2' label='Login' className={['sm:w-24', 'sm:h-10', 'bg-sky-500', 'hover:bg-sky-400']} isLoading={loginData.loading} disabled={loginData.hasErrors} submit={true} />
+      {/* {window.location.pathname != '/login' && (<button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => setOpen(false)}>CANCEL</button>)} */}
     </div>
   </form>
   </div>
-  let guest = window.location.pathname != '/login' && (<button onClick={(event) => { setOpen(!open); event.stopPropagation(); }}>
+  let guest = window.location.pathname != '/login' && (<button className='uppercase font-medium' onClick={(event) => { setOpen(!open); event.stopPropagation(); }}>
     Sign up
   </button>);
   let auth = user ? <div className='flex text-[0.7rem] gap-[0.5rem]'>

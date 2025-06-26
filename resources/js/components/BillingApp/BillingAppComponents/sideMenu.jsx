@@ -11,11 +11,11 @@ export default function SideMenu({ user }) {
     const profile = '/storage/assets/default-img.png';
     let sideMenuList = [
         { name: 'Dashboard', icon: 'dashboard', url: 'billingapp.dashboard' },
-        { name: 'Products', icon: 'dashboard', url: 'billingapp.product' },
+        { name: 'Products', icon: 'dashboard' },
         { name: 'Store', icon: 'dashboard',  url: "billingapp.store"},
         { name: 'Messages', icon: 'dashboard' },
         { name: 'Statistics', icon: 'dashboard' },
-        { name: 'Invoices', icon: 'dashboard' },
+        { name: 'Invoices', icon: 'dashboard' , url: 'billingapp.invoices'},
         { name: 'To Do list', icon: 'dashboard' },
         { name: 'Finances', icon: 'dashboard' }
     ]

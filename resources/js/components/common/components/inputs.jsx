@@ -20,8 +20,8 @@ export default function Input(props) {
     case 'number':
       input =
         <div className="w-full px-3 mb-3 ">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
-          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+          <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <input className="appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-indigo-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
           {Validate && (
             <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
               {errorMsg ? errorMsg : 'required field.'}
@@ -32,8 +32,8 @@ export default function Input(props) {
     case 'select':
       input =
         <div className="w-full px-3 mb-3 ">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
-          <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} >
+          <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <select className="appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md py-2 px-3  leading-5 focus:outline-none focus:bg-white focus:border-indigo-500" id={(id ? id : undefined)} name={name ? name : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} >
             <option value=''> None</option>
             {options.data && options.data.map((el, ind) => {
               return (<option key={ind} value={el[options.value]}>{options.name ? el[options.name] : el[options.value]}</option>)
@@ -49,8 +49,8 @@ export default function Input(props) {
     case 'checkbox':
       input =
         <div className="w-full px-3 mb-3 ">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
-          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} checked={value} />
+          <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-5 focus:outline-none focus:bg-white focus:border-gray-500" id={(id ? id : undefined)} name={name ? name : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} checked={value} />
           {Validate && (
             <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
               {errorMsg ? errorMsg : 'required field.'}

@@ -26,11 +26,11 @@ Route::middleware('auth')->group(function(){
         ]);
     })->name('billingapp.dashboard');
     
-    Route::get('/products', function () {
-        return Inertia::render('BillingApp/product' , [
+    Route::get('/invoices', function () {
+        return Inertia::render('BillingApp/invoices' , [
             'user' => auth()->user()
         ]);
-    })->name('billingapp.product');
+    })->name('billingapp.invoices');
 
     Route::get('/store', function () {
         return Inertia::render('BillingApp/store' , [

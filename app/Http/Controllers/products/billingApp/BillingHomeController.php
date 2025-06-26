@@ -14,7 +14,7 @@ class BillingHomeController extends Controller
     //
     public function addNewProduct(Request $request)
     {
-        $db_name = DB::connection('billing_mysql')->getDatabaseName();;
+        $db_name = DB::connection('billing_mysql')->getDatabaseName();
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'sku' => [
@@ -23,7 +23,7 @@ class BillingHomeController extends Controller
                 'max:100',
                 Rule::unique("billing_mysql.$db_name.products", 'sku'),
             ],
-            'category_id' => 'required|string|max:255',
+            'category_id' => 'required|integer|min:0',
             'purchase_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -31,8 +31,12 @@ class BillingHomeController extends Controller
             'status' => 'boolean',
             'user_id' => 'required',
         ]);
-        $products =  Products::create($validated);
-
+        Products::create($validated);
+        $products =   Category::select('id', 'category')->with('products')
+            ->where('user_id', $request->user_id)
+            ->where('status', 1)
+            ->get()
+            ->toArray();
         return response()->json(['products' => $products]);
     }
 
@@ -40,7 +44,7 @@ class BillingHomeController extends Controller
     {
         if (isset($request->order_by) && $request->order_by == 'category') {
             if (isset($request->user_id)) {
-                $data =  Category::select('id','category' )->with('products')
+                $data =  Category::select('id', 'category')->with('products')
                     ->where('user_id', $request->user_id)
                     ->where('status', 1)
                     ->get()
@@ -63,7 +67,12 @@ class BillingHomeController extends Controller
         ]);
 
         $categories = Category::create($validated);
-        return response()->json(['categories' => $categories]);
+        $products =   Category::select('id', 'category')->with('products')
+            ->where('user_id', $request->user_id)
+            ->where('status', 1)
+            ->get()
+            ->toArray();
+        return response()->json(['categories' => $categories, 'products' => $products]);
     }
 
     public function getCategory(Request $request)
