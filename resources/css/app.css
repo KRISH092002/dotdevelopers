@@ -11,13 +11,23 @@
 
 @layer utilities {
   @keyframes open_backdrop {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 
   @keyframes close_backdrop {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
   }
 
   .show .bg_backdrop {
@@ -33,6 +43,7 @@
       opacity: 0;
       transform: translateY(1rem) scale(0.95);
     }
+
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
@@ -44,6 +55,7 @@
       opacity: 1;
       transform: translateY(0) scale(1);
     }
+
     to {
       opacity: 0;
       transform: translateY(1rem) scale(0.95);
@@ -60,18 +72,26 @@
 }
 
 .roboto-condensed-font {
-    font-family: "Roboto Condensed", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Roboto Condensed", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
-.smooch-sans-font {
-    font-family: "Smooch Sans", serif;
-    font-optical-sizing: auto;
-    font-style: normal;
- }
-:root {
-  --primary-blue : #006fda;
-  --mantine-scale: 1;
 
+.smooch-sans-font {
+  font-family: "Smooch Sans", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+:root {
+  --primary-blue: #006fda;
+  --mantine-scale: 1;
+  --mantine-color-body: white;
+  --mantine-shadow-md: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --mantine-radius-default: 0.375rem;
+  --mantine-spacing-xs: 0.5rem;
+  --mantine-spacing-md: 0.5rem;
+  --mantine-font-size-md: 1rem;
+  --mantine-color-bright: black;
 }

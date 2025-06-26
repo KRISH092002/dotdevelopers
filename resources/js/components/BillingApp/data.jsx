@@ -1,32 +1,35 @@
 export const data = [
     {
-      date: 'Mar 22',
-      Apples: 2890,
-      Oranges: 2338,
-      Tomatoes: 2452,
+      date: '2020',
+      Expenses: 2890,
+      Profit: 2338,
+      Sales: 2452,
     },
     {
-      date: 'Mar 23',
-      Apples: 2756,
-      Oranges: 2103,
-      Tomatoes: 2402,
+      date: '2021',
+      Expenses: 2756,
+      Profit: 2103,
+      Sales: 2402,
     },
     {
-      date: 'Mar 24',
-      Apples: 3322,
-      Oranges: 986,
-      Tomatoes: 1821,
+      date: '2022',
+      Expenses: 3322,
+      Profit: 986,
+      Sales: 1821,
     },
     {
-      date: 'Mar 25',
-      Apples: 3470,
-      Oranges: 2108,
-      Tomatoes: 2809,
+      date: '2023',
+      Expenses: 3470,
+      Profit: 2108,
+      Sales: 2809,
     },
     {
-      date: 'Mar 26',
-      Apples: 3129,
-      Oranges: 1726,
-      Tomatoes: 2290,
+      date: '2024',
+      Expenses: 3129,
+      Profit: 1726,
+      Sales: 2290,
     },
   ];
+
+
+
