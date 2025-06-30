@@ -1,21 +1,40 @@
 import "../../../../css/common/inputs.css";
 
 export default function Input(props) {
-  let { type, id, label, name, placeholder, event, handler, onError, Validate, errorMsg, required, autofocus, value, options } = props
+  let { type, id, label, name, placeholder, event, handler, onError, Validate, errorMsg, required, autofocus, value, options, dataList, list, pattern, rows, cols } = props
   let input;
   switch (type) {
     case 'text': case 'email': case 'password':
       // h-[5rem]
-      input =
-        <div className="w-full px-3 mb-3 ">
+      if (dataList) {
+        input = <div className="w-full px-3 mb-3 ">
           <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
-          <input className="appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-indigo-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+          <input className="appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-indigo-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} list={list} />
           {Validate && (
             <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
               {errorMsg ? errorMsg : 'required field.'}
             </p>
           )}
+          <datalist id={list}>
+            {options.data && options.data.map((el, ind) => {
+              return (<option key={ind} value={el[options.value]}>{options.name ? el[options.name] : el[options.value]}</option>)
+            })}
+          </datalist>
+
         </div>
+      } else {
+        input =
+          <div className="w-full px-3 mb-3 ">
+            <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+            <input className="appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-indigo-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+            {Validate && (
+              <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
+                {errorMsg ? errorMsg : 'required field.'}
+              </p>
+            )}
+          </div>
+
+      }
       break;
     case 'number':
       input =
@@ -46,6 +65,18 @@ export default function Input(props) {
           )}
         </div>
       break
+    case 'tel':
+      input =
+        <div className="w-full px-3 mb-3 ">
+          <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+          <input pattern={pattern} className="appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-indigo-500" id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} type={type}  {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} />
+          {Validate && (
+            <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
+              {errorMsg ? errorMsg : 'required field.'}
+            </p>
+          )}
+        </div>
+      break
     case 'checkbox':
       input =
         <div className="w-full px-3 mb-3 ">
@@ -58,7 +89,17 @@ export default function Input(props) {
           )}
         </div>
       break;
-
+    case 'textarea':
+      input = <div className="w-full px-3 mb-3 ">
+        <label className="block font-[Roboto] uppercase tracking-wide text-zinc-800 text-xs font-bold mb-2" htmlFor={id}>{label}</label>
+        <textarea className='appearance-none block w-full  text-gray-700 border-2 border-black-400 rounded-md  py-2 px-2  leading-3 focus:outline-none focus:bg-white focus:border-indigo-500' id={(id ? id : undefined)} name={name ? name : undefined} placeholder={placeholder ? placeholder : undefined} {...{ [event]: handler }} {...(required ? { required: true } : {})} value={value} rows={rows ? rows : "4"} cols={cols ? cols : "50"}></textarea>
+        {Validate && (
+          <p className={`text-red-500 text-xs italic ${onError ? 'hidden' : ''}`}>
+            {errorMsg ? errorMsg : 'required field.'}
+          </p>
+        )}
+      </div>
+      break;
     default:
       break;
   }

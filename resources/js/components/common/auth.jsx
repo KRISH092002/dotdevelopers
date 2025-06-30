@@ -8,7 +8,7 @@ import useCustomForm from './components/useCustomForm';
 import Button from './components/button';
 
 export default function Auth({ isOpen }) {
-  const profile = '/storage/assets/default-img.png';
+  const profile = '/images/common/default-img.png';
   const { user } = usePage().props;
   const [open, setOpen] = useState(isOpen ?? true);
   const loginData = useCustomForm({
@@ -233,7 +233,7 @@ export default function Auth({ isOpen }) {
 
       <Input required={false} type='password' label='Password' id='new_password' name='new_password' placeholder="***********" event='onChange' value={signUpData.data.new_password} handler={(e) => signUpData.handleChange('new_password', e.target.value, e)} Validate={true} onError={!signUpData.errors.new_password} errorMsg={signUpData.errors.new_password} />
 
-      <Input required={false} type='password' value={signUpData.data.conf_password} label='Confirm Password' id='conf_password' name='conf_password' placeholder="***********" event='onChange' handler={passwordValid} Validate={true} onError={!signUpData.errors.conf_password} errorMsg={signUpData.errors.conf_password} />
+      <Input required={false} type='password'  label='Confirm Password' id='conf_password' name='conf_password' placeholder="***********" event='onChange' handler={passwordValid} Validate={true} onError={!signUpData.errors.conf_password} errorMsg={signUpData.errors.conf_password} />
     </div>
     <div className='text-gray-500 text-sm text-center'>
 

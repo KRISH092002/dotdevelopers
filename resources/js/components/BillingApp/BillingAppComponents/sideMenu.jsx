@@ -8,7 +8,7 @@ import { Inertia } from '@inertiajs/inertia';
 
 export default function SideMenu({ user }) {
     const [menu, triggerMenu] = useState(false);
-    const profile = '/storage/assets/default-img.png';
+    const profile = '/images/common/default-img.png';
     let sideMenuList = [
         { name: 'Dashboard', icon: 'dashboard', url: 'billingapp.dashboard' },
         { name: 'Products', icon: 'dashboard' },
