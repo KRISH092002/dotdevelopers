@@ -11,19 +11,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Vinkla\Hashids\Facades\Hashids ;
 
 class BillingHomeController extends Controller
 {
     //
+    
+    public function previewInvoice(Request $request)
+    {        
+        $invoice = Invoice::select('id', 'invoice_json as items','customer_id', 'payment_mode', 'total_amt', 'created_at')->with('customer')->where('user_id', $request->user()->id)->where('id', Hashids::decode($request->id)[0])->first();
+        return Inertia::render('BillingApp/BillingAppComponents/billPage', [
+            'invoice' => isset($invoice) ? $invoice: null
+        ]);
+    }
     public function getInvoices(Request $request)
     {
         if (isset($request->user()->id)) {
-            if($request->typw === 'pending'){
-                $invoices = Invoice::select('id', 'customer_id' , 'payment_mode' , 'total_amt' , 'created_at')->with('customer')->where('user_id', $request->user()->id)->where('payment_mode' , 'pending')->get();
-
-            }else{
-                $invoices = Invoice::select('id', 'customer_id' , 'payment_mode' , 'total_amt' , 'created_at')->with('customer')->where('user_id', $request->user()->id)->get();
-                
+            if ($request->typw === 'pending') {
+                $invoices = Invoice::select('id', 'customer_id', 'payment_mode', 'total_amt', 'created_at')->with('customer')->where('user_id', $request->user()->id)->where('payment_mode', 'pending')->get();
+            } else {
+                $invoices = Invoice::select('id', 'customer_id', 'payment_mode', 'total_amt', 'created_at')->with('customer')->where('user_id', $request->user()->id)->get();
             }
             return   response()->json(['status' => true, 'invoices' =>  $invoices]);
         }
@@ -39,7 +46,7 @@ class BillingHomeController extends Controller
         ]);
 
         $invoice = Invoice::create($validated);
-        return response()->json(['status' => true , 'invoice_id' => $invoice->id]);
+        return response()->json(['status' => true, 'invoice_id' => $invoice->id]);
     }
     public function getClients(Request $request)
     {
@@ -146,7 +153,7 @@ class BillingHomeController extends Controller
     public function getCategory(Request $request)
     {
         if (isset($request->user_id)) {
-            $categories = Category::where('user_id', $request->user_id)->where('status' , 1)->get();
+            $categories = Category::where('user_id', $request->user_id)->where('status', 1)->get();
             return response()->json(['status' => true, 'categories' => $categories]);
         }
     }

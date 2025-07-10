@@ -20,7 +20,12 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 let getRouteUrl = function(name , argue = null) {
-  let url = route(name)
+  let url;
+  if(argue && typeof argue == 'object'){
+    url = route(name , argue) 
+  }else{
+    url = route(name)
+  }
   let pattern = /:\/\/(.[^/]+)/;
   let path = url.split(url.match(pattern)[1])
   url = location.origin + path[1]

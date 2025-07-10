@@ -235,6 +235,9 @@ export default function Auth({ isOpen }) {
 
       <Input required={false} type='password'  label='Confirm Password' id='conf_password' name='conf_password' placeholder="***********" event='onChange' handler={passwordValid} Validate={true} onError={!signUpData.errors.conf_password} errorMsg={signUpData.errors.conf_password} />
     </div>
+    <a href={getRouteUrl('login.google')} className="btn btn-danger">
+  Login with Google
+</a>
     <div className='text-gray-500 text-sm text-center'>
 
       {setLogin && (

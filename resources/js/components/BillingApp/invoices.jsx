@@ -5,6 +5,8 @@ import Divider from '../common/components/dividerComponent';
 import MultiRingLoader from '../common/components/loader';
 import SideMenu from "./BillingAppComponents/sideMenu";
 import Input from '../common/components/inputs';
+import hashids from '../common/components/hashids';
+import Button from '../common/components/button'
 export default function Invoices() {
     const { user } = usePage().props;
     const [loader, setLoader] = useState(true);
@@ -56,6 +58,7 @@ export default function Invoices() {
                                     <th className=' p-1 '>Payment Mode</th>
                                     <th className=' p-1 '>Total amout</th>
                                     <th className=' p-1 '>Bill Date</th>
+                                    <th className=' p-1 '>Action</th>
                                 </tr>
                             </thead>
                             <tbody className=''>
@@ -67,7 +70,11 @@ export default function Invoices() {
 
                                             <td className='  p-2'>{row.payment_mode}</td>
                                             <td className=''>{row.total_amt}</td>
-                                            <td className=''>{row.created_at}</td>
+                                            <td className=''>{(function () {
+                                                let d = new Date(row.created_at)
+                                                return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
+                                            })()}</td>
+                                            <td className=''><Button type='normal_btn' label='View' className={[' hover:bg-gray-700', 'bg-gray-600']} handler={() => window.location.href = getRouteUrl('billingapp.preview.invoice', { id: hashids.encode(row.id) })} /></td>
                                         </tr>)
                                     })
                                 }

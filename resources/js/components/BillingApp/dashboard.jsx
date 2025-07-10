@@ -14,6 +14,7 @@ import AddInvoice from '../BillingApp/BillingAppComponents/addInvoice'
 import AddCustomerForm from '../BillingApp/BillingAppComponents/addCustomer';
 import { axiosInstance, getRouteUrl } from '../common/components/axiosService';
 import MultiRingLoader from '../common/components/loader';
+import hashids from '../common/components/hashids';
 export default function Dashbord() {
   const { user, products, clients } = usePage().props;
   const [cust_popup, toggleCustPopup] = useState(false);
@@ -123,6 +124,7 @@ export default function Dashbord() {
                   <th className=' p-1 '>Payment Mode</th>
                   <th className=' p-1 '>Total amout</th>
                   <th className=' p-1 '>Bill Date</th>
+                  <th className=' p-1 '>Action</th>
                 </tr>
               </thead>
               <tbody className=''>
@@ -134,7 +136,11 @@ export default function Dashbord() {
 
                       <td className='  p-2'>{row.payment_mode}</td>
                       <td className=''>{row.total_amt}</td>
-                      <td className=''>{row.created_at}</td>
+                      <td className=''>{(function () {
+                        let d = new Date(row.created_at)
+                        return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
+                      })()}</td>
+                      <td className=''><Button type='normal_btn' label='View' className={[' hover:bg-gray-700', 'bg-gray-600']} handler={() => window.location.href = getRouteUrl('billingapp.preview.invoice', { id: hashids.encode(row.id) })} /></td>
                     </tr>)
                   })
                 }

@@ -44,4 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::post('add/new/invoice', [BillingHomeController::class, 'addNewInvoice'])->name('billingapp.add.new.invoice');
 
     Route::post('get/invoices', [BillingHomeController::class, 'getInvoices'])->name('billingapp.get.invoices');
+
+    Route::get('preview/invoice/{id}' , [BillingHomeController::class , 'previewInvoice'])->name('billingapp.preview.invoice');
 });

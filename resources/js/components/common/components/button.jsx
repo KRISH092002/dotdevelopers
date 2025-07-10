@@ -125,8 +125,9 @@ export default function Button({ type,isLoading,svg, handler, submit, progress ,
             break;
 
         case 'normal_btn':
-            button = <button className="relative px-6 py-3 rounded-md bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium transition-all duration-300 hover:from-purple-500 hover:to-pink-500 hover:scale-105 shadow-md">
-                🚀 Upload Now
+            button = <button className={`relative px-5 py-2 rounded-md   text-white font-medium transition-all duration-300  shadow-md 
+               ${className.join(' ')}  `} onClick={handler ? handler : undefined}>
+               { label} 
             </button>
             break;
         case 'simple_btn':

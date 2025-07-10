@@ -4,6 +4,7 @@ import Input from '../../common/components/inputs'
 import Icon from '../../common/components/icon'
 import { RiMenuAddFill } from "react-icons/ri";
 import { axiosInstance, getRouteUrl } from '../../common/components/axiosService';
+import hashids from '../../common/components/hashids';
 
 
 
@@ -75,7 +76,10 @@ export default function AddInvoice({ products , user }) {
             axiosInstance.post(getRouteUrl('billingapp.add.new.invoice'), fd).then((response) => {
 
                 if (response.data.status) {
+
                     setLoading(false)
+                   
+                    window.location.href = getRouteUrl('billingapp.preview.invoice' , {id : hashids.encode(response.data.invoice_id)}) 
                 }
             });
         } else {

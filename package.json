@@ -9,7 +9,7 @@
         "prod": "npm run production",
         "production": "mix --production",
         "cacheclean": "php artisan config:clear && php artisan route:clear && php artisan cache:clear && php artisan view:clear && php artisan clear-compiled && composer dump-autoload && php artisan optimize && php artisan view:clear",
-        "npm run ziggy": "php artisan ziggy:generate",
+        "ziggy": "php artisan ziggy:generate",
         "optimize-svg": "svgo public/svg/spritemap.svg --config=svgo.config.js"
     },
     "devDependencies": {
@@ -37,6 +37,7 @@
         "@mantine/charts": "^8.0.2",
         "@mantine/core": "^8.0.2",
         "@mantine/hooks": "^8.0.2",
+        "hashids": "^2.3.0",
         "i": "^0.3.7",
         "jquery": "^3.7.1",
         "npm": "^10.9.2",
