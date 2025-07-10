@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: DotDevelopers
+    env: docker
+    plan: free
+    branch: main
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        sync: false  # generate it later using artisan
+      - key: APP_DEBUG
+        value: false
+
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: YOUR_RENDER_DB_HOST
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: dotdevelopers
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        value: YOUR_DB_PASSWORD
+
+      - key: BILLING_DB_CONNECTION
+        value: billing_mysql
+      - key: DB_HOST
+        value: YOUR_RENDER_DB_HOST
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: ddev_billings
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        value: YOUR_DB_PASSWORD
