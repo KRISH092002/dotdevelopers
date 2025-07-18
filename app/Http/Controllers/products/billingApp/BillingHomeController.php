@@ -11,17 +11,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
-use Vinkla\Hashids\Facades\Hashids ;
+use Vinkla\Hashids\Facades\Hashids;
 
 class BillingHomeController extends Controller
 {
     //
-    
+
     public function previewInvoice(Request $request)
-    {        
-        $invoice = Invoice::select('id', 'invoice_json as items','customer_id', 'payment_mode', 'total_amt', 'created_at')->with('customer')->where('user_id', $request->user()->id)->where('id', Hashids::decode($request->id)[0])->first();
+    {
+        $invoice = Invoice::select('id', 'invoice_json as items', 'customer_id', 'payment_mode', 'total_amt', 'created_at')->with('customer')->where('user_id', $request->user()->id)->where('id', Hashids::decode($request->id)[0])->first();
         return Inertia::render('BillingApp/BillingAppComponents/billPage', [
-            'invoice' => isset($invoice) ? $invoice: null
+            'invoice' => isset($invoice) ? $invoice : null
         ]);
     }
     public function getInvoices(Request $request)
@@ -81,8 +81,33 @@ class BillingHomeController extends Controller
     public function openDashboard(Request $request)
     {
         $getProducts = $this->getProducts($request);
+        $expense = Products::whereYear('created_at', now()->year)->sum('purchase_price');
+        $sales = Invoice::whereYear('created_at', now()->year)->sum('total_amt');
+
+        $expData = Products::selectRaw('YEAR(created_at) as year, SUM(purchase_price) as expense')->whereBetween(DB::raw('YEAR(created_at)'), [2020, 2025])
+            ->groupBy('year')
+            ->orderBy('year', 'desc')
+            ->get();
+        $salesData = Invoice::selectRaw('YEAR(created_at) as year, SUM(total_amt) as sales')->whereBetween(DB::raw('YEAR(created_at)'), [2020, 2025])
+            ->groupBy('year')
+            ->orderBy('year', 'desc')
+            ->get();
+
+        $expArray = collect($expData);
+
+        $salesArray = collect($salesData);
+        $data = $expArray
+            ->merge($salesArray)
+            ->groupBy('year')
+
+            ->values()->toArray();
+
         return Inertia::render('BillingApp/dashboard', [
             'user' => auth()->user(),
+            'expense' => $expense,
+            'sales' => $sales,
+            'data' => $data,
+            'profit' => ((int) $sales  - (int) $expense),
             'products' => isset($getProducts) ? $getProducts->toArray() : [],
             'clients' => isset($getClients) ? $getClients->toArray() : []
         ]);

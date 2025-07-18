@@ -89,11 +89,21 @@
   --primary-blue: #006fda;
   --mantine-scale: 1;
   --mantine-color-body: white;
-  --mantine-shadow-md: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  --mantine-radius-default: 0.375rem;
-  --mantine-spacing-xs: 0.5rem;
-  --mantine-spacing-md: 0.5rem;
-  --mantine-font-size-md: 1rem;
-  --mantine-color-bright: black;
-  --mantine-spacing-sm: 0.5rem;
+  --mantine-color-black: #000;
+  --mantine-color-text: #000;
+  --mantine-color-gray-3: #dee2e6;
+  --mantine-shadow-md: 0 calc(0.0625rem * var(--mantine-scale)) calc(0.1875rem * var(--mantine-scale)) rgba(0, 0, 0, .05), rgba(0, 0, 0, .05) 0 calc(1.25rem * var(--mantine-scale)) calc(1.5625rem * var(--mantine-scale)) calc(-0.3125rem * var(--mantine-scale)), rgba(0, 0, 0, .04) 0 calc(0.625rem * var(--mantine-scale)) calc(0.625rem * var(--mantine-scale)) calc(-0.3125rem * var(--mantine-scale));
+  --mantine-radius-default: calc(0.25rem * var(--mantine-scale));
+  --mantine-spacing-xs: calc(0.625rem * var(--mantine-scale));
+  --mantine-spacing-md: calc(1rem * var(--mantine-scale));
+  --mantine-font-size-md: calc(1rem * var(--mantine-scale));
+  --mantine-color-bright: var(--mantine-color-black);
+  --mantine-spacing-sm: calc(0.75rem * var(--mantine-scale));
+  --mantine-spacing-xl: calc(2rem * var(--mantine-scale));
+  --mantine-font-size-xs: calc(0.75rem * var(--mantine-scale));
+  --mantine-font-size-sm: calc(0.875rem * var(--mantine-scale));
+}
+
+.mantine-ChartTooltip-tooltipItemName{
+  text-transform: capitalize;
 }
